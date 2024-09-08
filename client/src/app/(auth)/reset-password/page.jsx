@@ -16,19 +16,14 @@ export default function Page() {
           <div className=""></div>
           <div className="flex items-center justify-center ">
             <div className="">
-              <h1 className="text-center font-semibold text-2xl">Welcome</h1>
+              <h1 className="text-center font-semibold text-2xl">Reset Password</h1>
+              <div className="flex justify-center pt-5">
+                <h3 className="max-w-[300px] text-center text-sm ">
+                  Enter your password to gain access to your account , Please remember your password from now on !
+                </h3>
+              </div>
               <form action="" className="grid gap-2 pt-5">
-                <div className="grid gap-2">
-                  <label htmlFor="" className="font-semibold">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name=""
-                    id=""
-                    className="px-5 py-2 border border-black/20 rounded-xl  focus:outline-none "
-                  />
-                </div>
+                
                 <div className="grid gap-2">
                   <label htmlFor="" className="font-semibold">
                     Password
@@ -55,21 +50,45 @@ export default function Page() {
                     </div>
                   </div>
                 </div>
-                <div className="pt-2">
-                    <Link href={"/forgot-password"} className="text-sm text-black/50 hover:text-black  duration-100">Forgot your password ?</Link>
+                <div className="grid gap-2">
+                  <label htmlFor="" className="font-semibold">
+                    Re-enter Password
+                  </label>
+                  <div className="flex border border-black/20 rounded-xl pl-2">
+                    <input
+                      type={show ? "password" : "text"}
+                      name=""
+                      id=""
+                      className="px-3 py-2  w-full focus:outline-none "
+                    />
+                    <div className="w-8 flex items-center">
+                      {show ? (
+                        <FaRegEyeSlash
+                          className=" absolute text-zinc-400 "
+                          onClick={handleShow}
+                        />
+                      ) : (
+                        <FaRegEye
+                          className=" absolute text-zinc-400 "
+                          onClick={handleShow}
+                        />
+                      )}
+                    </div>
+                  </div>
                 </div>
+                
                 <div className="pt-2">
                   <input
                     type="submit"
-                    value="Log In"
+                    value="Set Password"
                     className="bg-black text-white p-2 rounded-md min-w-[300px] font-semibold"
                   />
                 </div>
                 <div className="pt-5">
                   <h1 className="text-gray-400 text-center">
-                    Not a User ?{" "}
+                    Back to{" "}
                     <span className="font-semibold text-black">
-                      <Link href={"/signup"}>SignUp</Link>
+                      <Link href={"/login"}>Login ?</Link>
                     </span>
                   </h1>
                 </div>
@@ -87,7 +106,7 @@ export default function Page() {
         </div>
         <div className="my-auto rounded-2xl lg:order-2 order-1">
           <Image
-            src="/login.jpg"
+            src="/reset.jpg"
             width="1000"
             height="1000"
             alt=""
