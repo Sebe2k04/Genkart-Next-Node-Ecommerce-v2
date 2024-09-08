@@ -1,10 +1,13 @@
-import MegaMenu from "@/components/MegaMenu";
-import Image from "next/image";
+import Hero from "@/components/Home/Hero";
+import Navbar from "@/components/Navbar";
+
 
 export default function Home() {
+
   return (
-    <main className="px-20">
-      <MegaMenu/>
+    <main className="container" >
+      <Navbar />
+      <Hero/>
     </main>
   );
 }
