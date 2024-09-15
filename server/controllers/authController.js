@@ -3,8 +3,8 @@ const Admin = require("../models/adminSchema");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const sendEmail = require("../utils/sendEmail");
-const jwt = require('jsonwebtoken')
-const cookie = require('cookie');
+const jwt = require("jsonwebtoken");
+const cookie = require("cookie");
 require("dotenv").config();
 
 const generateToken = (userId, secret, expiresIn) => {
@@ -27,15 +27,14 @@ const login = async (req, res) => {
 
     const token = generateToken(
       user.id,
-      process.env.JWT_SECRET,
+      process.env.JWT_USER_SECRET,
       process.env.JWT_EXPIRES_IN
     );
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: 'lax'
-
+      sameSite: "lax",
     });
 
     res.status(200).json({ message: "Login successful" });
@@ -45,16 +44,21 @@ const login = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  res.clearCookie("token");
-  res.json({ message: "Logout successful" });
+  try {
+    res.clearCookie("token");
+    res.json({ message: "Logout successful" });
+  } catch (error) {
+    res.status(400).json({ message: "Logout failed" });
+  }
 };
 
 const signup = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
+  console.log(name, email, password);
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new Users({ username, email, password: hashedPassword });
+    const user = new Users({ name, email, password: hashedPassword });
     await user.save();
 
     res.status(201).json({ message: "User created", user });
@@ -115,16 +119,16 @@ const resetPassword = async (req, res) => {
 const adminLogin = async (req, res) => {
   const { email, password } = req.body;
   console.log(email, password);
-  const admin = await Admin.findOne({ email:email });
-  console.log('adminone',admin)
+  const admin = await Admin.findOne({ email: email });
+  console.log("adminone", admin);
   if (!admin) {
     return res.status(401).json({ message: "Invalid credentials" });
   }
 
-  console.log('admin',admin.email)
+  console.log("admin", admin.email);
 
   const isMatch = await bcrypt.compare(password, admin.password);
-  console.log('ismatch',isMatch)
+  console.log("ismatch", isMatch);
   if (!isMatch) {
     return res.status(400).json({ message: "Invalid credentials" });
   }
@@ -138,22 +142,10 @@ const adminLogin = async (req, res) => {
   res.cookie("adminToken", adminToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: 'lax'
-
+    sameSite: "lax",
   });
-  // res.setHeader('Set-Cookie', cookie.serialize('adminToken', adminToken, {
-  //   httpOnly: true, // Ensures that the cookie is only accessible by the server
-  //   secure: process.env.NODE_ENV === 'production', // Secure in production
-  //   maxAge: 60 * 60 * 24, // 1 day in seconds
-  //   sameSite: 'strict', // Helps prevent CSRF attacks
-  //   path: '/', // Make the cookie available across the site
-  // }));
+
   res.status(200).json({ message: "Login successful" });
-  // try {
-  
-  // } catch (error) {
-  //   res.status(500).json({ message: error });
-  // }
 };
 
 const adminLogout = (req, res) => {
@@ -167,9 +159,9 @@ const adminSignup = async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const admin = new Admin({ email, password: hashedPassword });
-    console.log('admin created',admin)
+    console.log("admin created", admin);
     await admin.save();
-    
+
     res.status(201).json({ message: "admin created", admin });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -184,5 +176,5 @@ module.exports = {
   resetPassword,
   adminLogin,
   adminSignup,
-  adminLogout
+  adminLogout,
 };

@@ -1,13 +1,15 @@
 "use client";
-import axiosInstance from "@/utils/axiosConfig";
+import { axiosInstance } from "@/utils/axiosConfig";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaOpencart, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 export default function Page() {
+  const router = useRouter();
   const [show, setShow] = useState(false);
 
   const [name, setName] = useState("");
@@ -31,25 +33,20 @@ export default function Page() {
   };
 
   const handleSubmit = async () => {
+
     try {
-      const res = await axiosInstance.post(
-        "http://localhost:5555/api/auth/admin/signup",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-          credentials:'include',
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      
+
+      const res = await axiosInstance.post("/auth/signup", {
+        name,
+        email,
+        password,
+      });
       console.log(res);
       toast.success("Account created", {
         autoClose: 3000, // Closes after 3 seconds
       });
+      router.push('/login')
     } catch (error) {
       console.error(error);
     }
@@ -81,6 +78,9 @@ export default function Page() {
                     type="text"
                     name=""
                     id=""
+                    required
+                    value={name}
+                    onChange={(e)=>setName(e.target.value)}
                     className="px-5 py-2 border border-black/20 rounded-xl  focus:outline-none "
                   />
                 </div>
@@ -92,6 +92,7 @@ export default function Page() {
                     type="email"
                     name=""
                     id=""
+                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="px-5 py-2 border border-black/20 rounded-xl  focus:outline-none "
@@ -106,6 +107,7 @@ export default function Page() {
                       type={show ? "text" : "password"}
                       name=""
                       id=""
+                      required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="px-3 py-2  w-full focus:outline-none "

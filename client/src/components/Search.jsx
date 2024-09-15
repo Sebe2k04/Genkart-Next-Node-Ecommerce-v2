@@ -6,8 +6,7 @@ import { CiSearch } from "react-icons/ci";
 const Search = () => {
   const router = useRouter();
   const path = usePathname();
-  const {searchTerm,setSearchTerm} = useGlobalContext();
-
+  const { searchTerm, setSearchTerm } = useGlobalContext();
 
   const [term, setTerm] = useState("");
   const handleInputChange = (e) => {
@@ -15,19 +14,16 @@ const Search = () => {
   };
   const handleSearch = () => {
     setSearchTerm(term);
-    if (path === "/product") {
+    if (path === "/product" || path.startsWith("/admin")) {
       console.log("searchpath");
-
     } else {
-      router.push('/product')
+      router.push("/product");
     }
-    
   };
-  
 
-  useEffect(()=>{
-    console.log(searchTerm)
-  },[searchTerm])
+  useEffect(() => {
+    console.log(searchTerm);
+  }, [searchTerm]);
 
   return (
     <div>
@@ -35,12 +31,16 @@ const Search = () => {
         <div className=" border flex h-fit w-fit pr-3 rounded-xl">
           <input
             type="text"
-            defaultValue={''}
+            defaultValue={searchTerm}
+
             onChange={handleInputChange}
             className=" bg-inherit rounded-xl  lg:min-w-[300px] focus:outline-none py-2 px-5"
           />
           <div className="flex items-center justify-end cursor-pointer  relative z-[100]">
-            <CiSearch onClick={handleSearch} className="text-2xl cursor-pointer" />
+            <CiSearch
+              onClick={handleSearch}
+              className="text-2xl cursor-pointer"
+            />
           </div>
         </div>
       </div>

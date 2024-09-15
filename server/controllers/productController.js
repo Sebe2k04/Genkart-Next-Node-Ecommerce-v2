@@ -191,10 +191,17 @@ const getProducts = async (req, res) => {
 
       query.category = category;
     }
-    if (minPrice > 0 && maxPrice > 0) {
-      console.log("m", minPrice, maxPrice);
-      query.price = { $gte: Number(minPrice), $lte: Number(maxPrice) };
+    // if (minPrice > 0 && maxPrice > 0) {
+    //   console.log("m", minPrice, maxPrice);
+    //   query.price = { $gte: Number(minPrice), $lte: Number(maxPrice) };
+    // }
+    if (minPrice > 0) {
+      query.sellingPrice = { ...query.sellingPrice, $gte: Number(minPrice) };
     }
+    if (maxPrice > 0) {
+      query.sellingPrice = { ...query.sellingPrice, $lte: Number(maxPrice) };
+    }
+
     const products = await Products.find(query)
       .skip((page - 1) * limit)
       .limit(Number(limit));

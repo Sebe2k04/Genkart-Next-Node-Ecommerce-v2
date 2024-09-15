@@ -4,7 +4,7 @@ require("dotenv").config();
 const singleUserData = async (req, res) => {
   try {
     // Assuming the user ID is available in req.user from authentication middleware
-    const user = await Users.findById(req.user.id).select("-password"); // exclude the password
+    const user = await Users.findById(req.userId).select("-password"); // exclude the password
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

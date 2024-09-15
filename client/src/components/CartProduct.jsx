@@ -4,17 +4,18 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import Link from "next/link";
 import { axiosInstance } from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
-const ProductCard = ({ product }) => {
-  const handleCart = async (id) => {
+const CartProduct = ({ product, quantity }) => {
+  const { userData, setUserData } = useGlobalContext();
+
+  const handleRemoveProduct = async (id) => {
     console.log(id);
     try {
-      const res = await axiosInstance.post("/cart", {
-        productId: id,
-        quantity: 1,
-      });
+      const res = await axiosInstance.delete(`/cart/${id}`);
       console.log(res.data);
-      toast.success("Product added to Cart");
+      setUserData({...userData, cart: res.data});
+      toast.success("Product removed to Cart");
     } catch (error) {
       console.log(error);
       toast.error("Error adding to Cart");
@@ -49,15 +50,15 @@ const ProductCard = ({ product }) => {
         </div>
       </Link>
       <div
-        onClick={() => handleCart(product._id)}
+        onClick={() => handleRemoveProduct(product._id)}
         className="flex cursor-pointer justify-center items-center gap-1 px-3 py-1 rounded-md border hover:bg-black hover:text-white duration-200 text-sm mt-2"
       >
         <GiShoppingCart className="font-semibold text-xl" />
-        <h1 className="pt-1">Add to Cart</h1>
+        <h1 className="pt-1">Remove</h1>
       </div>
-      <h1 className="pt-2 text-[12px]">For Demo purpose only - GenRio !</h1>
+      <h1 className="pt-2">Nos : {quantity}</h1>
     </div>
   );
 };
 
-export default ProductCard;
+export default CartProduct;

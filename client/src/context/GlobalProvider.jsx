@@ -3,7 +3,6 @@ import React, { createContext, useContext, useState } from "react";
 
 export const GlobalContext = createContext();
 
-
 const GlobalProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,6 +16,7 @@ const GlobalProvider = ({ children }) => {
     totalPages: 1,
   });
   const [userData, setUserData] = useState(null);
+  const [userAuth, setUserAuth] = useState(false);
 
   return (
     <GlobalContext.Provider
@@ -31,6 +31,8 @@ const GlobalProvider = ({ children }) => {
         setPagination,
         userData,
         setUserData,
+        userAuth,
+        setUserAuth,
       }}
     >
       {children}
@@ -40,11 +42,10 @@ const GlobalProvider = ({ children }) => {
 
 export default GlobalProvider;
 
-
 export const useGlobalContext = () => {
   const context = useContext(GlobalContext);
-  if(!context){
+  if (!context) {
     throw new Error("useGlobalContext must be used within a GlobalProvider");
   }
-  return context
+  return context;
 };

@@ -8,9 +8,9 @@ const {
 
 const authMiddleWare = require("../middlewares/authMiddleware");
 
-router.post("/add", authMiddleWare, addToCart);
+router.post("/", authMiddleWare, addToCart);
 
-router.delete("/remove", authMiddleWare, removeFromCart);
+router.delete("/:id", authMiddleWare, removeFromCart);
 
 router.get("/", authMiddleWare, getCart);
 
