@@ -9,10 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@material-tailwind/react": "^2.1.10",
+    "@mui/material": "^6.0.2",
+    "axios": "^1.7.7",
+    "jose": "^5.8.0",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.7",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.3.0"
+    "react-icons": "^5.3.0",
+    "react-toastify": "^10.0.5"
   },
   "devDependencies": {
     "eslint": "^8",

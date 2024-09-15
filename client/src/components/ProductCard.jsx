@@ -1,11 +1,42 @@
-import React from 'react'
+import React from "react";
+import { GiShoppingCart } from "react-icons/gi";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <div className="bg-white rounded-xl shadow-sm border p-5 relative group w-fit max-w-[250px] z-[10]">
+      <div className="flex justify-center">
+        <div className="">
+          <img
+            src={product.image}
+            alt=""
+            className=" object-cover rounded-md "
+          />
+        </div>
+      </div>
+      <div className="pt-3">
+        <div className="flex gap-3">
+          <div className="">
+            <h1 className="pt-1">&#8377; {product.sellingPrice}</h1>
+          </div>
+          <div className="line-through text-gray-400">
+            <h1 className="pt-1">&#8377; {product.MRPprice}</h1>
+          </div>
+        </div>
+        <h1 className="truncate font-semibold capitalize ">{product.name}</h1>
+        <h1>&#9733;&#9733;&#9733;&#9733;&#9733;</h1>
+        <h3 className="capitalize text-sm text-gray-400">{product.category}</h3>
 
-export default ProductCard
+        <div className="flex justify-center items-center gap-1 px-3 py-1 rounded-md border hover:bg-black hover:text-white duration-200 text-sm mt-2">
+          <GiShoppingCart className="font-semibold text-xl" />
+          <h1 className="pt-1">Add to Cart</h1>
+        </div>
+        <h1 className="pt-2 text-[12px]">
+          For Demo purpose only - GenRio  !
+        </h1>
+      </div>
+    </div>
+  );
+};
+
+export default ProductCard;
