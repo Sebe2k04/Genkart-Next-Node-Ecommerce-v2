@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import UserAuth from "@/components/secure/UserAuth";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
           <NavbarHandler />
           {children}
           <ToastContainer />
+          <UserAuth/>
         </DataProvider>
       </body>
     </html>

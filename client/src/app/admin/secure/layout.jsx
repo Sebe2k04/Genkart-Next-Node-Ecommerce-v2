@@ -4,9 +4,7 @@ export default function Layout({ children }) {
   return (
     <section className="flex ">
       <AdminNavbar />
-      <div className=" h-full w-full">
-      {children}
-      </div>
+      <div className=" h-full w-full">{children}</div>
     </section>
   );
 }

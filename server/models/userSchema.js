@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    name: {
       type: String,
       required: true,
     },
@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
+      default:"https://res.cloudinary.com/ded1o1e26/image/upload/v1726405493/profile_ioufgc.png"
     },
     resetPasswordToken: {
       type: String,

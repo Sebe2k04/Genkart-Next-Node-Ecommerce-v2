@@ -8,15 +8,32 @@ import Search from "./Search";
 import { Drawer } from "@mui/material";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
+import { useGlobalContext } from "@/context/GlobalProvider";
+import { axiosInstance } from "@/utils/axiosConfig";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const path = usePathname();
+  const { userAuth } = useGlobalContext();
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const res = await axiosInstance.post("/auth/logout");
+      console.log(res.data);
+      toast.success("Logout Successfully");
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
@@ -33,7 +50,7 @@ const Navbar = () => {
                   </h1>
                 </div>
                 <div className="lg:flex hidden">
-                <Search />
+                  <Search />
                 </div>
                 <div className="lg:flex hidden gap-8 items-center">
                   <HiOutlineShoppingBag className="text-2xl font-semibold" />
@@ -49,25 +66,35 @@ const Navbar = () => {
                     <div className="absolute right-0 pt-2 bg-transparent text-gray-400 hidden group-hover:block hover:block">
                       <div className="container bg-white px-5 pt-3 pb-1 w-full shadow-lg rounded-xl ">
                         <div className=" min-w-fit text-sm">
-                          <ul>
-                            <li className="mb-2 hover:text-black">
-                              <Link href="#">Profile</Link>
-                            </li>
-                            <li className="mb-2 hover:text-black">
-                              <Link href="#">Cart</Link>
-                            </li>
-                            <li className="mb-2 hover:text-black">
-                              <Link href="#">Logout</Link>
-                            </li>
-                          </ul>
+                          {userAuth ? (
+                            <ul>
+                              <li className="mb-2 hover:text-black">
+                                <Link href="/profile">Profile</Link>
+                              </li>
+                              <li className="mb-2 hover:text-black">
+                                <Link href="/cart">Cart</Link>
+                              </li>
+                              <li className="mb-2 hover:text-black cursor-pointer">
+                                <h1 onClick={handleLogout}>Logout</h1>
+                              </li>
+                            </ul>
+                          ) : (
+                            <ul>
+                              <li className="mb-2 hover:text-black">
+                                <Link href="/login">Login</Link>
+                              </li>
+                              <li className="mb-2 hover:text-black">
+                                <Link href="/signup">SignUp</Link>
+                              </li>
+                            </ul>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="text-2xl lg:hidden">
-                <HiOutlineMenuAlt4 onClick={toggleDrawer(true)} />
-
+                  <HiOutlineMenuAlt4 onClick={toggleDrawer(true)} />
                 </div>
               </div>
               <div className="lg:flex hidden justify-start gap-8 px-5 font-semibold">
@@ -98,7 +125,7 @@ const Navbar = () => {
         </main>
       </div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
-        <section className="flex flex-col justify-between w-full min-w-[250px] min-h-[100vh] px-10">
+        <section className="flex flex-col justify-between w-full min-w-[150px] min-h-[100vh] px-10">
           <div className="">
             <div className="flex justify-end pt-10">
               <IoMdClose className="text-4xl" onClick={toggleDrawer(false)} />
@@ -142,22 +169,44 @@ const Navbar = () => {
           </div>
           <div className="bottom flex align-bottom text-black pb-10 justify-center  pt-10">
             <div className="">
-              <section className="flex gap-5 justify-center items-center pb-5">
-                <section className="flex flex-col gap-5 items-center">
-                  <button
-                    // onClick={handleLogout}
-                    className="bg-gray-500 text-white px-4 py-1 rounded-xl"
-                  >
-                    Logout
-                  </button>
+              {userAuth ? (
+                <section className="grid gap-4">
+                  <div className="flex justify-center">
+                    <Link href={"/cart"}>Cart</Link>
+                  </div>
+                  <div className="flex justify-center">
+                    <Link href={"/profile"}>Profile</Link>
+                  </div>
+                  <section className="flex justify-center pb-5">
+                    <button
+                      onClick={handleLogout}
+                      className="bg-black text-white px-4 py-1 rounded-xl"
+                    >
+                      Logout
+                    </button>
+                  </section>
                 </section>
-              </section>
+              ) : (
+                <section className="grid gap-4">
+                  <div className="flex justify-center">
+                    <Link href={"/signup"}>Signup</Link>
+                  </div>
+                  <section className="flex justify-center pb-5">
+                    <Link
+                      href={"/login"}
+                      className="bg-black text-white px-4 py-1 rounded-xl"
+                    >
+                      LogIn
+                    </Link>
+                  </section>
+                </section>
+              )}
               <div className="flex items-center gap-5">
-                  <FaOpencart className="text-3xl" />
-                  <h1 className="text-2xl font-semibold text-center">
-                    G<span className="text-zinc-400 "> K</span>
-                  </h1>
-                </div>
+                <FaOpencart className="text-3xl" />
+                <h1 className="text-2xl font-semibold text-center">
+                  G<span className="text-zinc-400 "> K</span>
+                </h1>
+              </div>
             </div>
           </div>
         </section>

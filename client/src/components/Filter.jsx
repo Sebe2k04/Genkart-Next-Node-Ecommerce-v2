@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { FaFilter } from "react-icons/fa";
+import { Select, Option, Spinner } from "@material-tailwind/react";
+
 import {
   Button,
   Dialog,
@@ -8,11 +10,44 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
+import { useGlobalContext } from "@/context/GlobalProvider";
+import { axiosInstance } from "@/utils/axiosConfig";
 const Filter = () => {
   const [openFilter, setOpenFilter] = useState(false);
-
+  const [category, setCategory] = useState("");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000000);
   const handleOpenFilter = (data) => {
     setOpenFilter(!openFilter);
+  };
+
+  const { filters, setFilters, setProducts } = useGlobalContext();
+  const categories = [
+    {
+      label: "Electronics",
+      value: "electronics",
+    },
+    {
+      label: "Electronics",
+      value: "electronics",
+    },
+  ];
+  const handleFilter = () => {
+    setFilters({
+      ...filters,
+      category,
+      minPrice,
+      maxPrice,
+    });
+    setOpenFilter(false);
+    // axiosInstance
+    //   .get(`/products?category=${filters.category}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}`)
+    //   .then((response) => {
+    //     setProducts(response.data);
+    //   })
+    //  .catch((error) => {
+    //     console.error("Error fetching products: ", error);
+    //   });
   };
 
   return (
@@ -34,18 +69,67 @@ const Filter = () => {
           </div>
         </DialogHeader>
         <DialogBody>
-          <div className="relative h-[60vh] overflow-y-scroll"></div>
+          <div className="relative grid gap-5">
+            <div className="relative z-[0] grid gap-3">
+              <label className=" text-sm font-medium text-gray-700">
+                Select Category
+              </label>
+              <Select
+                value={category}
+                placeholder={"Select Category"}
+                className="border-gray-300 focus:border-gray-600 focus:outline-none placeholder:text-gray-400 label:text-gray-300 focus:ring-0 "
+              >
+                {categories.map((category, index) => (
+                  <Option
+                    onClick={() => setCategory(category.value)}
+                    key={index}
+                    value={category.value}
+                  >
+                    {category.label}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <div className="grid gap-3">
+              <label className=" text-sm font-medium text-gray-700">
+                Min Price
+              </label>
+              <input
+                type="number"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+                className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
+              />
+            </div>
+            <div className="grid gap-3">
+              <label className=" text-sm font-medium text-gray-700">
+                Max Price
+              </label>
+              <input
+                type="number"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+                className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
+              />
+            </div>
+          </div>
         </DialogBody>
         <DialogFooter>
           <div className="flex justify-end">
-            <div className="bg-black text-white flex gap-2 px-3 py-2 rounded-md items-center cursor-pointer ">
+            <div
+              onClick={handleFilter}
+              className="bg-black text-white flex gap-2 px-3 py-2 rounded-md items-center cursor-pointer "
+            >
               <FaFilter className="text-xl" />
               <h2 className="lg:flex hidden">Apply Filters</h2>
             </div>
           </div>
         </DialogFooter>
       </Dialog>
-      <div onClick={handleOpenFilter} className="bg-black text-white flex gap-2 px-3 py-2 rounded-md items-center cursor-pointer ">
+      <div
+        onClick={handleOpenFilter}
+        className="bg-black text-white flex gap-2 px-3 py-2 rounded-xl items-center cursor-pointer "
+      >
         <FaFilter className="text-xl" />
         <h2 className="lg:flex hidden">Apply Filters</h2>
       </div>
