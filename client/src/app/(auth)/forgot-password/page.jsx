@@ -3,11 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaOpencart, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export default function Page() {
   const [show, setShow] = useState(false);
   const handleShow = () => {
     show === true ? setShow(false) : setShow(true);
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+   
   };
   return (
     <div className="bg-gray-100 lg:p-10 p-2 lg:px-32 min-h-[100vh] w-full">
@@ -49,6 +55,7 @@ export default function Page() {
 
                 <div className="pt-5">
                   <input
+                    onClick={handleClick}
                     type="submit"
                     value="Send Mail"
                     className="bg-black text-white p-2 rounded-md min-w-[300px] font-semibold"

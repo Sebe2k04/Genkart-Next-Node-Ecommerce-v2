@@ -1,6 +1,13 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import axios from 'axios';
+// import Navbar from "@/components/Navbar";
+import NavbarHandler from "@/components/NavbarHandler";
+import DataProvider from "@/context/GlobalProvider";
+// axios.defaults.withCredentials = true;
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +18,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <DataProvider>
+          <NavbarHandler />
+          {children}
+          <ToastContainer />
+        </DataProvider>
+      </body>
     </html>
   );
 }

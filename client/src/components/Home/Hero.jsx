@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div className="lg:px-20 px-10  ">
       <main className=" min-h-[80vh] flex items-center">
-        <div className="grid grid-cols-2">
+        <div className="grid lg:grid-cols-2">
           <div className="">
             <Image
               src={"/hero1.jpg"}
@@ -16,8 +16,8 @@ const Hero = () => {
               className="w-[500px] h-auto rounded-xl opacity-100 m-auto"
             />
           </div>
-          <div className="my-auto">
-            <h1 className="text-5xl font-semibold font-sans leading-[60px]">
+          <div className="my-auto grid gap-5 lg:gap-0 pt-5 lg:pt-0">
+            <h1 className="lg:text-5xl text-3xl font-semibold font-sans lg:leading-[60px]">
               Don't be slow! Our prices are low..!
             </h1>
             <h3>

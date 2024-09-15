@@ -12,22 +12,22 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  }
+  // fileFilter: function (req, file, cb) {
+  //   checkFileType(file, cb);
+  // }
 });
 
 
-function checkFileType(file, cb) {
-  const filetypes = /jpeg|jpg|png/;
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = filetypes.test(file.mimetype);
+// function checkFileType(file, cb) {
+//   const filetypes = /jpeg|jpg|png/;
+//   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+//   const mimetype = filetypes.test(file.mimetype);
 
-  if (extname && mimetype) {
-    return cb(null, true);
-  } else {
-    cb('Images only!');
-  }
-}
+//   if (extname && mimetype) {
+//     return cb(null, true);
+//   } else {
+//     cb('Images only!');
+//   }
+// }
 
 module.exports = upload;

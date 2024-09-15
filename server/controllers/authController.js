@@ -3,7 +3,8 @@ const Admin = require("../models/adminSchema");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const sendEmail = require("../utils/sendEmail");
-
+const jwt = require('jsonwebtoken')
+const cookie = require('cookie');
 require("dotenv").config();
 
 const generateToken = (userId, secret, expiresIn) => {
@@ -14,7 +15,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = Users.findOne({ email });
+    const user = await Users.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
@@ -33,7 +34,8 @@ const login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: 'lax'
+
     });
 
     res.status(200).json({ message: "Login successful" });
@@ -112,50 +114,67 @@ const resetPassword = async (req, res) => {
 
 const adminLogin = async (req, res) => {
   const { email, password } = req.body;
-
-  try {
-    const user = Users.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
-
-    const isMatch = await user.matchPassword(password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
-
-    const adminToken = generateToken(
-      user.id,
-      process.env.JWT_SECRET,
-      process.env.JWT_EXPIRES_IN
-    );
-
-    res.cookie("adminToken", adminToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-    });
-
-    res.status(200).json({ message: "Login successful" });
-  } catch (error) {
-    res.status(500).json({ message: "Login Error", error });
+  console.log(email, password);
+  const admin = await Admin.findOne({ email:email });
+  console.log('adminone',admin)
+  if (!admin) {
+    return res.status(401).json({ message: "Invalid credentials" });
   }
+
+  console.log('admin',admin.email)
+
+  const isMatch = await bcrypt.compare(password, admin.password);
+  console.log('ismatch',isMatch)
+  if (!isMatch) {
+    return res.status(400).json({ message: "Invalid credentials" });
+  }
+
+  const adminToken = generateToken(
+    admin.id,
+    process.env.JWT_SECRET,
+    process.env.JWT_EXPIRES_IN
+  );
+
+  res.cookie("adminToken", adminToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: 'lax'
+
+  });
+  // res.setHeader('Set-Cookie', cookie.serialize('adminToken', adminToken, {
+  //   httpOnly: true, // Ensures that the cookie is only accessible by the server
+  //   secure: process.env.NODE_ENV === 'production', // Secure in production
+  //   maxAge: 60 * 60 * 24, // 1 day in seconds
+  //   sameSite: 'strict', // Helps prevent CSRF attacks
+  //   path: '/', // Make the cookie available across the site
+  // }));
+  res.status(200).json({ message: "Login successful" });
+  // try {
+  
+  // } catch (error) {
+  //   res.status(500).json({ message: error });
+  // }
+};
+
+const adminLogout = (req, res) => {
+  res.clearCookie("adminToken");
+  res.json({ message: "Logout successful" });
 };
 
 const adminSignup = async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(email, password);
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new Users({ username, email, password: hashedPassword });
-    await user.save();
-
-    res.status(201).json({ message: "User created", user });
+    const admin = new Admin({ email, password: hashedPassword });
+    console.log('admin created',admin)
+    await admin.save();
+    
+    res.status(201).json({ message: "admin created", admin });
   } catch (error) {
-    res.status(500).json({ error: "Signup failed" });
+    res.status(500).json({ message: error.message });
   }
 };
-
 
 module.exports = {
   login,
@@ -165,4 +184,5 @@ module.exports = {
   resetPassword,
   adminLogin,
   adminSignup,
-}
+  adminLogout
+};

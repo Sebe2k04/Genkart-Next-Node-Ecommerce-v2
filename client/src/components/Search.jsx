@@ -1,16 +1,46 @@
-import React from "react";
+"use client";
+import { useGlobalContext } from "@/context/GlobalProvider";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 const Search = () => {
+  const router = useRouter();
+  const path = usePathname();
+  const {searchTerm,setSearchTerm} = useGlobalContext();
+
+
+  const [term, setTerm] = useState("");
+  const handleInputChange = (e) => {
+    setTerm(e.target.value);
+  };
+  const handleSearch = () => {
+    setSearchTerm(term);
+    if (path === "/product") {
+      console.log("searchpath");
+
+    } else {
+      router.push('/product')
+    }
+    
+  };
+  
+
+  useEffect(()=>{
+    console.log(searchTerm)
+  },[searchTerm])
+
   return (
     <div>
       <div className="flex justify-center items-center">
-        <div className="bg-gray-100 flex h-fit w-fit pr-3 rounded-xl">
+        <div className=" border flex h-fit w-fit pr-3 rounded-xl">
           <input
             type="text"
-            className="bg-gray-100 rounded-xl  lg:min-w-[350px] focus:outline-none py-2 px-5"
+            defaultValue={''}
+            onChange={handleInputChange}
+            className=" bg-inherit rounded-xl  lg:min-w-[300px] focus:outline-none py-2 px-5"
           />
-          <div className="flex items-center justify-end">
-            <CiSearch className="text-2xl" />
+          <div className="flex items-center justify-end cursor-pointer  relative z-[100]">
+            <CiSearch onClick={handleSearch} className="text-2xl cursor-pointer" />
           </div>
         </div>
       </div>
