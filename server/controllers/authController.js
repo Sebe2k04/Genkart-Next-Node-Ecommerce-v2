@@ -144,7 +144,7 @@ const adminLogin = async (req, res) => {
   res.cookie("adminToken", adminToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     maxAge: 24 * 60 * 60 * 1000, // 1 day
   });
 
