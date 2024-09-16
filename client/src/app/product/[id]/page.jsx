@@ -52,10 +52,11 @@ export default function Page() {
                 {product?.additionalImages.map((image, index) => (
                   <div
                     onClick={() => setCurrentImage(image)}
+                    key={index}
                     className="mx-auto max-w-[100px] max-h-[100px] relative"
                   >
                     <img
-                      key={index}
+                      
                       src={image}
                       alt=""
                       className="rounded-md mx-auto object-cover "

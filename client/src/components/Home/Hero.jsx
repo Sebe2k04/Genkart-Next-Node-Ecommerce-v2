@@ -18,7 +18,7 @@ const Hero = () => {
           </div>
           <div className="my-auto grid gap-5 lg:gap-0 pt-5 lg:pt-0">
             <h1 className="lg:text-5xl text-3xl font-semibold font-sans lg:leading-[60px]">
-              Don't be slow! Our prices are low..!
+              Don&apos;t be slow! Our prices are low..!
             </h1>
             <h3>
               Genkart is a ecommerce platform to enhance online shopping

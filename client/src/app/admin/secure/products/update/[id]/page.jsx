@@ -260,7 +260,7 @@ export default function Page() {
                 <h1>Old Additional image</h1>
                 <div className="flex flex-wrap py-5">
                   {oldData.additionalImages.map((image, index) => (
-                    <div className="">
+                    <div key={index} className="">
                       {/* <img src={URL.createObjectURL(image)} alt="" key={index} /> */}
                       <img
                         src={image}
