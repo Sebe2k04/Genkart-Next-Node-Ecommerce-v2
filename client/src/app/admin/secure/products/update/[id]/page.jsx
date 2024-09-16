@@ -15,12 +15,12 @@ import { axiosInstance } from "@/utils/axiosConfig";
 export default function Page() {
   const categories = [
     {
-      label: "Electronics",
-      value: "electronics",
+      label: "Casuals",
+      value: "casuals",
     },
     {
-      label: "Electronics",
-      value: "electronics",
+      label: "T shirts",
+      value: "tshirts",
     },
   ];
 

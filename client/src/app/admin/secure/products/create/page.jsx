@@ -15,12 +15,12 @@ import { axiosInstance } from "@/utils/axiosConfig";
 export default function Page() {
   const categories = [
     {
-      label: "Electronics",
-      value: "electronics",
+      label: "Casuals",
+      value: "casuals",
     },
     {
-      label: "Electronics",
-      value: "electronics",
+      label: "T shirts",
+      value: "tshirts",
     },
   ];
 
@@ -39,11 +39,22 @@ export default function Page() {
 
   console.log(image);
   console.log(additionalImages);
+  const MAX_LENGTH = 3;
+  const handleAdditionalImages = (e) => {
+    if (Array.from(e.target.files).length > MAX_LENGTH) {
+      e.preventDefault();
+      toast.error(`Cannot upload files more than ${MAX_LENGTH}`);
+      e.target.files = null;
+      return;
+    } else {
+      setAdditionalImages(e.target.files);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const formdata = new FormData();
     formdata.append("name", name);
     formdata.append("description", description);
@@ -63,15 +74,11 @@ export default function Page() {
     }
 
     try {
-      const res = await axiosInstance.post(
-        `/product`,
-        formdata,
-        {
-          headers: {
-            "Content-type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await axiosInstance.post(`/product`, formdata, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
       console.log(res.data);
       setLoading(false);
       toast.success("Product added successfully");
@@ -84,15 +91,17 @@ export default function Page() {
 
   return (
     <div className="lg:px-10 px-8 py-8 lg:pt-8 pt-24 ">
-    <div className={
-      loading ? "fixed z-[50] lg:left-[55%] top-[45%] left-[45%]" : "hidden"
-    }>
-      <div className="flex justify-center items-center bg-white p-5 rounded-xl">
-      <div className="">
-      <Spinner className="h-10 w-10" />
+      <div
+        className={
+          loading ? "fixed z-[50] lg:left-[55%] top-[45%] left-[45%]" : "hidden"
+        }
+      >
+        <div className="flex justify-center items-center bg-white p-5 rounded-xl">
+          <div className="">
+            <Spinner className="h-10 w-10" />
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
       <div className="lg:flex justify-between items-center ">
         <div className="flex gap-2 items-center">
           <Link href={"/admin/secure/home"}>
@@ -119,6 +128,7 @@ export default function Page() {
             </label>
             <input
               type="text"
+              required
               onChange={(e) => setName(e.target.value)}
               className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
             />
@@ -127,7 +137,11 @@ export default function Page() {
             <label className=" text-sm font-medium text-gray-700">
               Select Category
             </label>
-            <Select placeholder={"Select Category"} className="border-gray-300 focus:border-gray-600 focus:outline-none placeholder:text-gray-400 label:text-gray-300 focus:ring-0 ">
+            <Select
+              required
+              placeholder={"Select Category"}
+              className="border-gray-300 focus:border-gray-600 focus:outline-none placeholder:text-gray-400 label:text-gray-300 focus:ring-0 "
+            >
               {categories.map((category, index) => (
                 <Option
                   onClick={() => setCategory(category.value)}
@@ -140,11 +154,10 @@ export default function Page() {
             </Select>
           </div>
           <div className="grid gap-3">
-            <label className=" text-sm font-medium text-gray-700">
-              Vendor
-            </label>
+            <label className=" text-sm font-medium text-gray-700">Vendor</label>
             <input
               type="text"
+              required
               onChange={(e) => setVendor(e.target.value)}
               className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
             />
@@ -155,6 +168,7 @@ export default function Page() {
             </label>
             <input
               type="number"
+              required
               onChange={(e) => setMRPprice(e.target.value)}
               className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
             />
@@ -165,6 +179,7 @@ export default function Page() {
             </label>
             <input
               type="number"
+              required
               onChange={(e) => setSellingprice(e.target.value)}
               className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
             />
@@ -175,6 +190,7 @@ export default function Page() {
             </label>
             <input
               type="number"
+              required
               defaultValue={10}
               onChange={(e) => setQuantity(e.target.value)}
               className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
@@ -193,6 +209,7 @@ export default function Page() {
               type="file"
               name="image"
               id="image"
+              required
               accept="image/*"
               onChange={(e) => setImage(e.target.files[0])}
               className="file:bg-gray-50 file:px-5 file:py-2 file:rounded-md file:border file:border-gray-200 lg:file:mr-10 file:mr-5"
@@ -212,8 +229,9 @@ export default function Page() {
               name="additionalImages"
               id="additionalImages"
               multiple
+              required
               accept="image/*"
-              onChange={(e) => setAdditionalImages(e.target.files)}
+              onChange={handleAdditionalImages}
               className="file:bg-gray-50 file:px-5 file:py-2 file:rounded-md file:border file:border-gray-200 lg:file:mr-10 file:mr-5"
             />
           </div>
@@ -224,6 +242,7 @@ export default function Page() {
             </label>
             <textarea
               onChange={(e) => setDescription(e.target.value)}
+              required
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
               rows="5"
             />
@@ -240,6 +259,7 @@ export default function Page() {
           <div className="grid gap-3 pt-5">
             <input
               type="submit"
+              required
               value={"Create Product"}
               className=" w-full px-3 py-2 border border-gray-300 bg-black text-white rounded-md sm:text-sm"
             />

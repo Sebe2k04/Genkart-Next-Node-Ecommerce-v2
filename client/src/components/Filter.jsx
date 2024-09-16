@@ -24,12 +24,12 @@ const Filter = () => {
   const { filters, setFilters, setProducts } = useGlobalContext();
   const categories = [
     {
-      label: "Electronics",
-      value: "electronics",
+      label: "Casuals",
+      value: "casuals",
     },
     {
-      label: "Electronics",
-      value: "electronics",
+      label: "T shirts",
+      value: "tshirts",
     },
   ];
   const handleFilter = () => {

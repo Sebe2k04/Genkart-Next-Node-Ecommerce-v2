@@ -4,28 +4,7 @@ import { jwtVerify } from "jose"; // Use a library like jose for JWT verificatio
 import { adminAuth } from "./middlewares/adminAuth";
 import { normalUserAuth } from "./middlewares/normalUserAuth";
 
-export async function middleware(req) {
-  // const token = req.cookies.get("adminToken")?.value;
-
-  // if (!token) {
-  //   // Redirect to login if no token is found
-  //   return NextResponse.redirect(new URL("/admin", req.url));
-  // }
-
-  // try {
-  //   // Verify JWT token
-  //   const { payload } = await jwtVerify(
-  //     token,
-  //     new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET)
-  //   );
-
-  //   // Proceed to the requested page
-  //   return NextResponse.next();
-  // } catch (error) {
-  //   // Token verification failed, redirect to login
-  //   return NextResponse.redirect(new URL("/admin", req.url));
-  // }
-
+export async function middleware(req,res) {
   if (req.nextUrl.pathname.startsWith("/admin")) {
     const adminResponse = await adminAuth(req);
     if (adminResponse) return adminResponse;
@@ -38,49 +17,23 @@ export async function middleware(req) {
     const userResponse = await normalUserAuth(req);
     if (userResponse) return userResponse;
   } else {
-    console.log("normal route middleware");
-    const token = req.cookies.get("token")?.value;
-    console.log(token, "token");
+    console.log(req.headers)
+    const token = req.headers.get("authorization")?.split(" ")[1]; // Extract the token
+
     if (!token) {
-      console.log("no token");
-
-      const response = NextResponse.next();
-      response.cookies.set("token2", "no token", {
-        httpOnly: true,
-        path: "/",
-        maxAge: 30 * 24 * 60 * 60,
-      });
-      return response;
-      // Redirect to login if no token is found
       // return NextResponse.redirect(new URL("/login", req.url));
-    }
-
-    try {
-      // Verify JWT token
-      console.log("token verifying");
-      const { payload } = await jwtVerify(
-        token,
-        new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_USER_SECRET)
-      );
-
-      const response = NextResponse.next();
-
-      response.cookies.set("token3", token, {
-        httpOnly: true,
-        path: "/",
-        maxAge: 30 * 24 * 60 * 60,
-      });
-
-      // Proceed to the requested page
-      return response;
-    } catch (error) {
-      console.log("token validation failed");
+      console.log("No token")
       return NextResponse.next();
-      // Token verification failed, redirect to login
-      // return NextResponse.redirect(new URL("/login", req.url));
+    } else {
+      const response = NextResponse.next();
+      response.cookies.set("token", token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+      return response;
     }
   }
-  // return NextResponse.next();
 }
 
 // Apply middleware to specific routes (e.g., dashboard, profile, etc.)

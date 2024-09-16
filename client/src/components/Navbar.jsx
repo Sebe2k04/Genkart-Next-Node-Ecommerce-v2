@@ -53,8 +53,9 @@ const Navbar = () => {
                   <Search />
                 </div>
                 <div className="lg:flex hidden gap-8 items-center">
-                  <HiOutlineShoppingBag className="text-2xl font-semibold" />
-
+                  <Link href={"/cart"}>
+                    <HiOutlineShoppingBag className="text-2xl font-semibold" />
+                  </Link>
                   <div className="relative group">
                     <button className="">
                       <img
@@ -107,18 +108,21 @@ const Navbar = () => {
                       <div className=" min-w-fit text-sm">
                         <ul>
                           <li className="mb-2 hover:text-black">
-                            <Link href="#">Casuals</Link>
+                            <Link href="/categories/casuals">Casuals</Link>
                           </li>
                           <li className="mb-2 hover:text-black">
-                            <Link href="#">T shirts</Link>
+                            <Link href="/categories/tshirts">T shirts</Link>
+                          </li>
+                          <li className="mb-2 hover:text-black">
+                            <Link href="/categories/">All&nbsp;Categories</Link>
                           </li>
                         </ul>
                       </div>
                     </div>
                   </div>
                 </div>
-                <Link href={""}>Trends</Link>
-                <Link href={""}>Offers</Link>
+                <Link href={"/trend"}>Trends</Link>
+                <Link href={"/offer"}>Offers</Link>
               </div>
             </div>
           </nav>
@@ -153,18 +157,21 @@ const Navbar = () => {
                     <div className=" min-w-fit text-sm">
                       <ul>
                         <li className="mb-2 hover:text-black">
-                          <Link href="#">Casuals</Link>
+                          <Link href="/categories/casuals">Casuals</Link>
                         </li>
                         <li className="mb-2 hover:text-black">
-                          <Link href="#">T shirts</Link>
+                          <Link href="/categories/tshirts">T shirts</Link>
+                        </li>
+                        <li className="mb-2 hover:text-black">
+                          <Link href="/categories/">All&nbsp;Categories</Link>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
-              <Link href={""}>Trends</Link>
-              <Link href={""}>Offers</Link>
+              <Link href={"/trend"}>Trends</Link>
+              <Link href={"/offer"}>Offers</Link>
             </div>
           </div>
           <div className="bottom flex align-bottom text-black pb-10 justify-center  pt-10">

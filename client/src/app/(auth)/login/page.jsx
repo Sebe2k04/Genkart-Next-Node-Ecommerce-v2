@@ -1,6 +1,8 @@
 "use client";
+import { setCookie } from "@/actions/setCookie";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
+import Cookies from "js-cookie";
 import { Truculenta } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,12 +21,15 @@ export default function Page() {
   };
   const { setUserAuth } = useGlobalContext();
   const handleLogin = async (e) => {
+    Cookies.set('name', 'value', { expires: 365 , httpOnly: true, })
+
     e.preventDefault();
     try {
       const res = await axiosInstance.post("/auth/login", { email, password });
-      console.log(res.data);
+      console.log(res.data.token);
+      setCookie(res.data.token)
       setUserAuth(true);
-      router.push("/");
+      // router.push("/");
 
       toast.success("Logged In Successfully");
     } catch (error) {
@@ -65,7 +70,7 @@ export default function Page() {
                   </label>
                   <div className="flex border border-black/20 rounded-xl pl-2">
                     <input
-                      type={show ?  "text" : "password" }
+                      type={show ? "text" : "password"}
                       name="password"
                       id="password"
                       value={password}
