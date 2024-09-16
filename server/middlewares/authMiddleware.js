@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const authMiddleware = (req, res, next) => {
   console.log(req)
-  const token = req.cookies.token;
+  const token = req.cookies.usertToken;
   console.log("token",token)
   if (!token) {
     return res.status(401).json({ message: "Not authenticated" });

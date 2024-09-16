@@ -31,14 +31,14 @@ const login = async (req, res) => {
       process.env.JWT_EXPIRES_IN
     );
 
-    // res.cookie("token", token, {
-    //   domain:process.env.DOMAIN_NAME,
-    //   httpOnly: true,
-    //   path: "/",
-    //   secure: process.env.NODE_ENV === "production",
-    //   sameSite:  process.env.NODE_ENV === "production" ? "Strict" : "Lax",
-    //   maxAge: 24 * 60 * 60 * 1000, 
-    // });
+    res.cookie("userToken", token, {
+      domain:process.env.DOMAIN_NAME,
+      httpOnly: true,
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+      sameSite:  process.env.NODE_ENV === "production" ? "None" : "Lax",
+      maxAge: 24 * 60 * 60 * 1000, 
+    });
     // res.setHeader('Authorization', `Bearer ${token}`);
     res.status(200).json({ message: "Login successful",token });
   } catch (error) {

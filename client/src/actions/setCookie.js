@@ -10,9 +10,9 @@ export async function setCookie(value) {
     name: 'token',
     value: value,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // Use secure only in production
+    secure: process.env.NEXT_PUBLIC_NODE_ENV === 'production', // Use secure only in production
     path: '/',
-    sameSite: 'None', // CSRF protection
+    sameSite: process.env.NEXT_PUBLIC_NODE_ENV === "production" ? "None" : "Lax", // CSRF protection
     maxAge: 60 * 60 * 24, // 1 day
   });
 
