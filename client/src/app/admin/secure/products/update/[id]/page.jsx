@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FaBox } from "react-icons/fa6";
 import { Select, Option, Spinner } from "@material-tailwind/react";
 import { Switch } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { axiosConfig } from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -41,6 +41,8 @@ export default function Page() {
   const [oldData, setOldData] = useState();
   const [loading, setLoading] = useState(false);
 
+  const inputFile = useRef(null);
+
   useEffect(() => {
     const fetchProduct = async () => {
       setLoading(true);
@@ -69,6 +71,25 @@ export default function Page() {
 
   console.log(image);
   console.log(additionalImages);
+  const MAX_LENGTH = 2;
+  const handleReset = () => {
+    if (inputFile.current) {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+    }
+};
+  const handleAdditionalImages = (e) => {
+    if (Array.from(e.target.files).length > MAX_LENGTH) {
+      e.preventDefault();
+      toast.error(`Cannot upload files more than ${MAX_LENGTH}`);
+      // e.target.files = null;
+      handleReset();
+      return;
+    } else {
+      setAdditionalImages(e.target.files);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -253,7 +274,8 @@ export default function Page() {
                   id="additionalImages"
                   multiple
                   accept="image/*"
-                  onChange={(e) => setAdditionalImages(e.target.files)}
+                  ref={inputFile}
+                  onChange={handleAdditionalImages}
                   className="file:bg-gray-50 file:px-5 file:py-2 file:rounded-md file:border file:border-gray-200 lg:file:mr-10 file:mr-5"
                 />
               </div>
