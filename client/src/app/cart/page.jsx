@@ -25,12 +25,14 @@ export default function Page() {
   }, []);
   return (
     <div className="lg:px-20 px-8 py-5">
-      <div className=""></div>
-      <div className="">
+      <div className="py-5">
+        <h1 className="text-xl font-semibold text-center">My Cart</h1>
+      </div>
+      <div className="lg:grid-cols-4 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 gap-8 py-5 pb-24">
         {userData?.cart &&
           userData.cart.map((product, index) => {
             return (
-              <div key={index} className="">
+              <div key={index} className="m-auto p-2">
                 <CartProduct
                   product={product.product}
                   quantity={product.quantity}

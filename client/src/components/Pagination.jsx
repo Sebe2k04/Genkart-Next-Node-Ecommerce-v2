@@ -5,16 +5,16 @@ import { useGlobalContext } from "@/context/GlobalProvider";
 
 const Pagination = () => {
   const { pagination, setPagination } = useGlobalContext();
+  console.log(pagination.currentPage,"p")
   const next = () => {
     if (pagination.currentPage === pagination.totalPages) return;
 
-    setPagination({...pagination, currentPage: pagination.currentPage + 1 });
+    setPagination({ ...pagination, currentPage: pagination.currentPage + 1 });
   };
 
   const prev = () => {
     if (active === 1) return;
     setPagination({ ...pagination, currentPage: pagination.currentPage - 1 });
-
   };
 
   return (
@@ -28,8 +28,8 @@ const Pagination = () => {
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
       </IconButton>
       <Typography color="gray" className="font-normal">
-        Page <strong className="text-gray-900">{pagination.currentPage}</strong> of{" "}
-        <strong className="text-gray-900">{pagination.totalPages}</strong>
+        Page <strong className="text-gray-900">{pagination.currentPage}</strong>{" "}
+        of <strong className="text-gray-900">{pagination.totalPages}</strong>
       </Typography>
       <IconButton
         size="sm"

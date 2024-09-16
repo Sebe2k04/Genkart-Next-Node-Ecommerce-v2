@@ -1,8 +1,8 @@
 "use client";
+import Pagination from "@/components/Pagination";
 import ProductCard from "@/components/ProductCard";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
-import { Pagination } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -10,24 +10,33 @@ import { toast } from "react-toastify";
 export default function Page() {
   const { name } = useParams();
   const [products, setProducts] = useState([]);
-  const { searchTerm, setSearchTerm } = useGlobalContext();
+  const [PaginatedValue, setPaginatedValue] = useState(1);
 
-  const { pagination, setPagination } = useGlobalContext();
+  const {searchTerm, setSearchTerm,pagination, setPagination } = useGlobalContext();
 
   useEffect(() => {
     setPagination({ ...pagination, currentPage: 1 });
   }, []);
 
   useEffect(() => {
+    if (PaginatedValue == pagination.totalPages) {
+    } else {
+      setPagination({ ...pagination, totalPages: res.data.totalPages });
+    }
+  }, [PaginatedValue]);
+
+  useEffect(() => {
     const fetchCategory = async () => {
       const query = new URLSearchParams({
         search: searchTerm,
         category: name,
+        pagination: pagination.currentPage,
       }).toString();
       try {
         const res = await axiosInstance.get(`/product?${query}`);
         console.log(res.data.products);
         setProducts(res.data.products);
+        setPaginatedValue(res.data.totalPages)
       } catch (error) {
         console.error(error);
         toast.error("Error fetching category");
@@ -41,18 +50,15 @@ export default function Page() {
       <div className="py-5">
         <h1 className="text-center capitalize">{name}</h1>
       </div>
-      <div className="">
-        {products &&
-          products.map((product, index) => {
-            return (
-              <div key={index} className="">
-                <ProductCard product={product} />
-              </div>
-            );
-          })}
+      <div className="lg:grid-cols-4 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 gap-8 py-5 pb-24">
+        {products && products.map((product, index) => (
+          <div key={index} className="m-auto p-2">
+            <ProductCard product={product} />
+          </div>
+        ))}
       </div>
       <div className="flex justify-center py-5">
-        <Pagination/>
+        <Pagination />
       </div>
     </div>
   );

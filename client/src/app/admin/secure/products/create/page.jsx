@@ -36,15 +36,24 @@ export default function Page() {
   const [image, setImage] = useState(null);
   const [additionalImages, setAdditionalImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const inputFile = useRef(null);
 
   console.log(image);
   console.log(additionalImages);
-  const MAX_LENGTH = 3;
+  const MAX_LENGTH = 2;
+  const handleReset = () => {
+    if (inputFile.current) {
+        inputFile.current.value = "";
+        inputFile.current.type = "text";
+        inputFile.current.type = "file";
+    }
+};
   const handleAdditionalImages = (e) => {
     if (Array.from(e.target.files).length > MAX_LENGTH) {
       e.preventDefault();
       toast.error(`Cannot upload files more than ${MAX_LENGTH}`);
-      e.target.files = null;
+      // e.target.files = null;
+      handleReset();
       return;
     } else {
       setAdditionalImages(e.target.files);
@@ -231,6 +240,7 @@ export default function Page() {
               multiple
               required
               accept="image/*"
+              ref={inputFile}
               onChange={handleAdditionalImages}
               className="file:bg-gray-50 file:px-5 file:py-2 file:rounded-md file:border file:border-gray-200 lg:file:mr-10 file:mr-5"
             />

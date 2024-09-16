@@ -22,7 +22,7 @@ import { GiShoppingCart } from "react-icons/gi";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
-import { Pagination } from "@mui/material";
+import Pagination from "@/components/Pagination";
 
 export default function Page() {
   const [openView, setOpenView] = useState(false);
@@ -73,7 +73,7 @@ export default function Page() {
   } = useGlobalContext();
 
   useEffect(() => {
-    if (PaginatedValue == pagination.currentPage) {
+    if (PaginatedValue == pagination.totalPages) {
       
     } else {
       setPagination({ ...pagination, totalPages: res.data.totalPages });
