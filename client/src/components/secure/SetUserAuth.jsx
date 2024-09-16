@@ -18,7 +18,7 @@ const SetUserAuth = ({ token, auth }) => {
       }
     };
 
-    const authCheck  = () => {
+    const authCheck = () => {
       if (auth) {
         setUserAuth(auth);
         console.log("token is available");
@@ -28,7 +28,7 @@ const SetUserAuth = ({ token, auth }) => {
       }
     };
     authCheck();
-  }, [router]);
+  }, [userAuth,userData]);
   return <div></div>;
 };
 
