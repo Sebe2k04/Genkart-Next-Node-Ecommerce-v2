@@ -1,3 +1,4 @@
+"use client"
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
 import { useParams } from "next/navigation";
