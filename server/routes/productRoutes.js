@@ -24,8 +24,8 @@ router.get("/", getProducts);
 
 router.get("/:id", getProductById);
 
-router.get("/trend", trendProducts);
+router.get("/filter/trend", trendProducts);
 
-router.get("/offer", offerProducts);
+router.get("/filter/offer", offerProducts);
 
 module.exports = router;

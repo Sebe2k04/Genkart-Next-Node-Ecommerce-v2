@@ -223,6 +223,7 @@ const getProductById = async (req, res) => {
 };
 
 const trendProducts = async (req, res) => {
+  console.log("trend")
   try {
     const products = await Products.find({ trend: true });
     res.status(200).json(products);
