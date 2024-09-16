@@ -28,7 +28,7 @@ const SetUserAuth = ({ token, auth }) => {
       }
     };
     authCheck();
-  }, [userAuth,userData]);
+  }, []);
   return <div></div>;
 };
 
