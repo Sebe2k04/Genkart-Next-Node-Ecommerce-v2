@@ -30,12 +30,17 @@ export async function middleware(req) {
     const adminResponse = await adminAuth(req);
     if (adminResponse) return adminResponse;
   } else if (
-    req.url.pathname.startsWith("/profile") ||
-    req.url.pathname.startsWith("/cart")
+    req.nextUrl.pathname.startsWith("/profile") ||
+    req.nextUrl.pathname.startsWith("/cart")
   ) {
+    console.log("user route middleware")
+
     const userResponse = await normalUserAuth(req);
     if (userResponse) return userResponse;
   } else {
+
+
+    console.log("normal route middleware")
     const token = req.cookies.get("token")?.value;
     console.log(token, "token");
     if (!token) {
