@@ -33,8 +33,10 @@ const login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
+      path:'/',
       secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
+      sameSite: "Lax",
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 
     res.status(200).json({ message: "Login successful" });
@@ -141,7 +143,8 @@ const adminLogin = async (req, res) => {
   res.cookie("adminToken", adminToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: "Strict",
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
   });
 
   res.status(200).json({ message: "Login successful" });
