@@ -32,7 +32,7 @@ const login = async (req, res) => {
     );
 
     res.cookie("token", token, {
-      domain: process.env.CLIENT_URL,
+      domain: process.env.DOMAIN_NAME,
       httpOnly: true,
       path: "/",
       secure: process.env.NODE_ENV === "production",
