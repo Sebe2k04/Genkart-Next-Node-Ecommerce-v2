@@ -50,7 +50,7 @@ export async function middleware(req) {
 
 
       const response = NextResponse.next();
-      response.cookies.set("token", "no token", {
+      response.cookies.set("token2", "no token", {
         httpOnly: true,
         path: "/",
         maxAge: 30 * 24 * 60 * 60,
