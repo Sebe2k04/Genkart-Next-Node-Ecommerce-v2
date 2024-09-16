@@ -22,6 +22,8 @@ export default function Page() {
     setUserData,
   } = useGlobalContext();
   console.log(searchTerm, "in p");
+  console.log(pagination, "in p");
+  console.log(filters, "in p");
   useEffect(() => {
     const fetchProducts = async () => {
       const query = new URLSearchParams({
@@ -35,6 +37,7 @@ export default function Page() {
         const res = await axiosInstance.get(`/product?${query}`);
         console.log(res.data);
         setProducts(res.data.products);
+        setPagination(res.data.pagination);
       } catch (error) {
         toast.error("Error fetching Product");
         console.error(error);

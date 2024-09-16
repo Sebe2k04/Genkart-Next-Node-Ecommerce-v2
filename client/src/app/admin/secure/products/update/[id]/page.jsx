@@ -11,6 +11,7 @@ import { axiosConfig } from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { axiosInstance } from "@/utils/axiosConfig";
+import { useParams } from "next/navigation";
 
 export default function Page() {
   const categories = [
@@ -101,9 +102,9 @@ export default function Page() {
         }
       );
       console.log(res.data);
-      toast.success("Product added successfully");
+      toast.success("Product updated successfully");
     } catch (error) {
-      toast.error("Error creating product");
+      toast.error("Error updating product");
       console.error(error);
     }
   };
@@ -305,7 +306,7 @@ export default function Page() {
               <div className="grid gap-3 pt-5">
                 <input
                   type="submit"
-                  value={"Create Product"}
+                  value={"Update Product"}
                   className=" w-full px-3 py-2 border border-gray-300 bg-black text-white rounded-md sm:text-sm"
                 />
               </div>

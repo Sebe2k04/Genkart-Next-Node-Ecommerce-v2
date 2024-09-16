@@ -59,7 +59,7 @@ export default function Page() {
                       
                       src={image}
                       alt=""
-                      className="rounded-md mx-auto object-cover "
+                      className="rounded-md max-w-[100px] max-h-[100px] aspect-square mx-auto object-cover "
                     />
                   </div>
                 ))}
@@ -67,14 +67,14 @@ export default function Page() {
                   src={product.image}
                   onClick={() => setCurrentImage(product.image)}
                   alt=""
-                  className="rounded-md mx-auto object-cover max-h-[100px]"
+                  className="rounded-md mx-auto object-cover max-h-[100px] max-w-[100px] aspect-square"
                 />
               </div>
               <div className="md:col-span-3 lg:order-2 order-1">
                 <img
                   src={currentImage}
                   alt=""
-                  className="rounded-md  lg:h-full object-cover duration-200 "
+                  className="rounded-md w-full max-h-[400px] lg:max-h-full lg:w-full object-cover duration-200 "
                 />
               </div>
             </div>

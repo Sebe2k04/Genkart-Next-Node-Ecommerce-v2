@@ -21,14 +21,14 @@ const ProductCard = ({ product }) => {
     }
   };
   return (
-    <div className="bg-white rounded-xl shadow-sm border p-5 relative group w-fit max-w-[250px] z-[10]">
+    <div className="bg-white rounded-xl shadow-sm border p-5 relative group w-fit lg:max-w-[250px] max-w-[300px] z-[10]">
       <Link href={`/product/${product._id}`}>
         <div className="flex justify-center">
-          <div className="">
+          <div className="aspect-square	 object-cover">
             <img
               src={product.image}
               alt=""
-              className=" object-cover rounded-md "
+              className=" object-cover max-w-[250px] max-h-[250px] lg:max-w-[200px] lg:max-h-[200px] rounded-md aspect-square	"
             />
           </div>
         </div>

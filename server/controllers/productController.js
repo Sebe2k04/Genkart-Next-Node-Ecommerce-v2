@@ -162,7 +162,7 @@ const getProducts = async (req, res) => {
     minPrice,
     maxPrice,
     page = 1,
-    limit = 10,
+    limit = 8,
   } = req.query;
   try {
     console.log(

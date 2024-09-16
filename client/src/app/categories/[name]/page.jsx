@@ -1,8 +1,10 @@
-"use client"
+"use client";
+import ProductCard from "@/components/ProductCard";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
+import { Pagination } from "@mui/material";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Page() {
@@ -10,15 +12,22 @@ export default function Page() {
   const [products, setProducts] = useState([]);
   const { searchTerm, setSearchTerm } = useGlobalContext();
 
+  const { pagination, setPagination } = useGlobalContext();
+
+  useEffect(() => {
+    setPagination({ ...pagination, currentPage: 1 });
+  }, []);
+
   useEffect(() => {
     const fetchCategory = async () => {
       const query = new URLSearchParams({
         search: searchTerm,
-        category: filters.category,
+        category: name,
       }).toString();
       try {
         const res = await axiosInstance.get(`/product?${query}`);
-        console.log(res.data);
+        console.log(res.data.products);
+        setProducts(res.data.products);
       } catch (error) {
         console.error(error);
         toast.error("Error fetching category");
@@ -41,6 +50,9 @@ export default function Page() {
               </div>
             );
           })}
+      </div>
+      <div className="flex justify-center py-5">
+        <Pagination/>
       </div>
     </div>
   );
