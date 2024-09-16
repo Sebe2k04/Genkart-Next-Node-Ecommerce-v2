@@ -4,6 +4,7 @@ require("dotenv").config();
 
 
 const authMiddleware = (req, res, next) => {
+  console.log(req)
   const token = req.cookies.token;
   console.log("token",token)
   if (!token) {
