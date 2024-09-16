@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const adminAuthMiddleware = (req, res, next) => {
-  const token = req.cookies.adminToken;
+  const token = req.cookies.adminUserToken;
   if (!token) {
     return res.status(401).json({ message: "Not authenticated" });
   }

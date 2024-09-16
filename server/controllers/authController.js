@@ -141,18 +141,19 @@ const adminLogin = async (req, res) => {
     process.env.JWT_EXPIRES_IN
   );
 
-  res.cookie("adminToken", adminToken, {
+  res.cookie("adminUserToken", adminToken, {
     httpOnly: true,
+    path: "/",
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     maxAge: 24 * 60 * 60 * 1000, // 1 day
   });
 
-  res.status(200).json({ message: "Login successful" });
+  res.status(200).json({ message: "Login successful",adminToken });
 };
 
 const adminLogout = (req, res) => {
-  res.clearCookie("adminToken");
+  res.clearCookie("adminUserToken");
   res.json({ message: "Logout successful" });
 };
 

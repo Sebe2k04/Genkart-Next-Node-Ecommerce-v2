@@ -1,4 +1,5 @@
 "use client";
+import { setCookie } from "@/actions/setCookie";
 import { axiosInstance } from "@/utils/axiosConfig";
 
 import axios from "axios";
@@ -19,28 +20,24 @@ export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-  const [pop,setPop] = useState(false)
-
-
-
+  const [pop, setPop] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     try {
-      const res = await axiosInstance.post('/auth/admin/login',{
+      const res = await axiosInstance.post("/auth/admin/login", {
         email,
         password,
-      })
+      });
       console.log(res.data);
-      toast.success("Logged In Successfully");
+      await setCookie("adminToken", res.data.adminToken);
       router.push("/admin/secure/dashboard");
+      toast.success("Logged In Successfully");
     } catch (error) {
       console.error(error);
-      console.log(error.response.data.message)
-      toast.error(error.response.data.message);
+      // console.log(error.response.data.message);
+      toast.error("Issue on Login");
     }
   };
 

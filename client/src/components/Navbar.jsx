@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { removeCookie } from "@/actions/removeCookie";
 
 const Navbar = () => {
+  
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const path = usePathname();
@@ -29,11 +30,14 @@ const Navbar = () => {
     try {
       const res = await axiosInstance.post("/auth/logout");
       console.log(res.data);
-      removeCookie('token');
-
+      removeCookie("token");
       toast.success("Logout Successfully");
-
-      router.push("/");
+      
+      if(path === "/"){
+        router.reload();
+      }
+      else{router.push("/");
+      }
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);

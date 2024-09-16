@@ -29,7 +29,7 @@ export default function Page() {
       console.log(res.data);
       await setCookie('token',res.data.token)
       setUserAuth(true);
-      // router.push("/");
+      router.push("/");
 
       toast.success("Logged In Successfully");
     } catch (error) {

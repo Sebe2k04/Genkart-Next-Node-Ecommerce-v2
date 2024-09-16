@@ -16,6 +16,7 @@ import { Spinner } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/utils/axiosConfig";
+import { removeCookie } from "@/actions/removeCookie";
 
 const AdminNavbar = () => {
   const path = usePathname();
@@ -60,18 +61,18 @@ const AdminNavbar = () => {
 
   console.log(path);
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     try {
-      const res = await axiosInstance.post('/auth/admin/logout');
+      const res = await axiosInstance.post("/auth/admin/logout");
       console.log(res.data);
-      router.push('/admin')
-      
+      removeCookie("adminToken");
+      toast.success("Logout successfully");
+      router.push("/admin");
     } catch (error) {
       console.error(error);
-      toast.error('Unable to Logout');
+      toast.error("Unable to Logout");
     }
-  }
-
+  };
 
   return (
     <div className="">
@@ -134,6 +135,13 @@ const AdminNavbar = () => {
                     </Link>
                   );
                 })}
+                <div
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 p-2 bg-black justify-center rounded-md text-white cursor-pointer"
+                >
+                  <IoLogOutOutline className="text-2xl" />
+                  <h1>Logout</h1>
+                </div>
               </div>
             </div>
             <div className="bottom flex align-bottom text-black pb-10 justify-center  pt-10">
@@ -170,7 +178,10 @@ const AdminNavbar = () => {
                     </Link>
                   );
                 })}
-                <div onClick={handleLogout} className="flex items-center gap-2 p-2 bg-black justify-center rounded-md text-white cursor-pointer">
+                <div
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 p-2 bg-black justify-center rounded-md text-white cursor-pointer"
+                >
                   <IoLogOutOutline className="text-2xl" />
                   <h1>Logout</h1>
                 </div>
