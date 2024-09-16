@@ -45,7 +45,17 @@ export async function middleware(req) {
     console.log(token, "token");
     if (!token) {
       console.log("no token");
-      return NextResponse.next();
+
+
+
+
+      const response = NextResponse.next();
+      response.cookies.set("token", "no token", {
+        httpOnly: true,
+        path: "/",
+        maxAge: 30 * 24 * 60 * 60,
+      });
+      return response;
       // Redirect to login if no token is found
       // return NextResponse.redirect(new URL("/login", req.url));
     }
