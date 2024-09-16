@@ -32,11 +32,12 @@ const login = async (req, res) => {
     );
 
     res.cookie("token", token, {
+      domain: process.env.CLIENT_URL,
       httpOnly: true,
-      path:'/',
+      path: "/",
       secure: process.env.NODE_ENV === "production",
       sameSite: "Lax",
-      maxAge: 24 * 60 * 60 * 1000 // 1 day
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
     res.status(200).json({ message: "Login successful" });
@@ -144,7 +145,7 @@ const adminLogin = async (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "Strict",
-    maxAge: 24 * 60 * 60 * 1000 // 1 day
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
   });
 
   res.status(200).json({ message: "Login successful" });
