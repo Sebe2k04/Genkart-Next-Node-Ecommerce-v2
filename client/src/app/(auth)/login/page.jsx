@@ -27,7 +27,7 @@ export default function Page() {
     try {
       const res = await axiosInstance.post("/auth/login", { email, password });
       console.log(res.data);
-      await setCookie(res.data.token)
+      await setCookie('token',res.data.token)
       setUserAuth(true);
       // router.push("/");
 

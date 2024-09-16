@@ -2,12 +2,12 @@
 
 import { cookies } from 'next/headers';
 
-export async function setCookie(value) {
+export async function setCookie(name,value) {
   const cookieStore = cookies();
 
   // Set the cookie with httpOnly, secure, and other attributes
   cookieStore.set({
-    name: 'token',
+    name: name,
     value: value,
     httpOnly: true,
     secure: process.env.NEXT_PUBLIC_NODE_ENV === 'production', // Use secure only in production
