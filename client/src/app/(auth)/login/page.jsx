@@ -52,8 +52,8 @@ export default function Page() {
                   </label>
                   <input
                     type="email"
-                    name=""
-                    id=""
+                    name="email"
+                    id="email"
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                     className="px-5 py-2 border border-black/20 rounded-xl  focus:outline-none "
@@ -66,8 +66,8 @@ export default function Page() {
                   <div className="flex border border-black/20 rounded-xl pl-2">
                     <input
                       type={show ?  "text" : "password" }
-                      name=""
-                      id=""
+                      name="password"
+                      id="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="px-3 py-2  w-full focus:outline-none "
