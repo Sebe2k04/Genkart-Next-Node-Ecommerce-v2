@@ -4,7 +4,7 @@ import SetUserAuth from "./SetUserAuth";
 
 const userAuth = () => {
   const cookieStore = cookies(); 
-  const userToken = cookieStore.get("token"); 
+  const userToken =  cookieStore.get("token"); 
   let auth = false;
   if(!userToken){
     console.log("No token available");
