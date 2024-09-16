@@ -76,6 +76,8 @@ const Filter = () => {
               </label>
               <Select
                 value={category}
+                id="category"
+                name="category"
                 placeholder={"Select Category"}
                 className="border-gray-300 focus:border-gray-600 focus:outline-none placeholder:text-gray-400 label:text-gray-300 focus:ring-0 "
               >
@@ -96,6 +98,8 @@ const Filter = () => {
               </label>
               <input
                 type="number"
+                id="minPrice"
+                name="minPrice"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
                 className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
@@ -107,6 +111,8 @@ const Filter = () => {
               </label>
               <input
                 type="number"
+                id="maxPrice"
+                name="maxPrice"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
                 className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"

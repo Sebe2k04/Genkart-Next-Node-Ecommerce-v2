@@ -32,7 +32,8 @@ const Search = () => {
           <input
             type="text"
             defaultValue={searchTerm}
-
+            name="search"
+            id="search"
             onChange={handleInputChange}
             className=" bg-inherit rounded-xl  lg:min-w-[300px] focus:outline-none py-2 px-5"
           />
