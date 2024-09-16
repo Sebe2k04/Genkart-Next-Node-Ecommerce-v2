@@ -12,7 +12,7 @@ export async function setCookie(value) {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production', // Use secure only in production
     path: '/',
-    sameSite: 'strict', // CSRF protection
+    sameSite: 'None', // CSRF protection
     maxAge: 60 * 60 * 24, // 1 day
   });
 
