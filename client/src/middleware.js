@@ -29,14 +29,51 @@ export async function middleware(req) {
   if (req.nextUrl.pathname.startsWith("/admin")) {
     const adminResponse = await adminAuth(req);
     if (adminResponse) return adminResponse;
-  } else {
+  } else if (
+    req.url.pathname.startsWith("/profile") ||
+    req.url.pathname.startsWith("/cart")
+  ) {
     const userResponse = await normalUserAuth(req);
     if (userResponse) return userResponse;
+  } else {
+    const token = req.cookies.get("token")?.value;
+    console.log(token, "token");
+    if (!token) {
+      console.log("no token");
+      return NextResponse.next();
+      // Redirect to login if no token is found
+      // return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    try {
+      // Verify JWT token
+      console.log("token verifying");
+      const { payload } = await jwtVerify(
+        token,
+        new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_USER_SECRET)
+      );
+
+      const response = NextResponse.next();
+
+      response.cookies.set("token2", token, {
+        httpOnly: true,
+        path: "/",
+        maxAge: 30 * 24 * 60 * 60,
+      });
+
+      // Proceed to the requested page
+      return response;
+    } catch (error) {
+      console.log("token validation failed");
+      return NextResponse.next();
+      // Token verification failed, redirect to login
+      // return NextResponse.redirect(new URL("/login", req.url));
+    }
   }
-  return NextResponse.next();
+  // return NextResponse.next();
 }
 
 // Apply middleware to specific routes (e.g., dashboard, profile, etc.)
 export const config = {
-  matcher: ["/admin/secure/:path*", "/profile/:path", "/cart/:path"],
+  matcher: ["/admin/secure/:path*", "/profile/:path", "/cart/:path", "/:path"],
 };
