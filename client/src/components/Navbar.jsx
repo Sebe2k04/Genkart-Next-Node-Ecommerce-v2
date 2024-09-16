@@ -13,6 +13,7 @@ import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
+import { removeCookie } from "@/actions/removeCookie";
 
 const Navbar = () => {
   const router = useRouter();
@@ -28,7 +29,10 @@ const Navbar = () => {
     try {
       const res = await axiosInstance.post("/auth/logout");
       console.log(res.data);
+      removeCookie('token');
+
       toast.success("Logout Successfully");
+
       router.push("/");
     } catch (error) {
       console.error(error);

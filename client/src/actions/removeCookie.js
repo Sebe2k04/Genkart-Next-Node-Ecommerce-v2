@@ -7,7 +7,7 @@ export async function removeCookie(name) {
 
   // Clear the cookie by setting it to an empty value and a past expiration date
   cookieStore.set({
-    name: cookieName,
+    name: name,
     value: '',
     expires: new Date(0), // Expire the cookie immediately
     path: '/', // Ensure the cookie is deleted for the entire site
