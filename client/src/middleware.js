@@ -16,27 +16,12 @@ export async function middleware(req,res) {
 
     const userResponse = await normalUserAuth(req);
     if (userResponse) return userResponse;
-  } else {
-    console.log(req.headers)
-    const token = req.headers.get("authorization")?.split(" ")[1]; // Extract the token
+  } 
 
-    if (!token) {
-      // return NextResponse.redirect(new URL("/login", req.url));
-      console.log("No token")
-      return NextResponse.next();
-    } else {
-      const response = NextResponse.next();
-      response.cookies.set("token", token, {
-        httpOnly: true,
-        secure: true,
-        maxAge: 24 * 60 * 60 * 1000,
-      });
-      return response;
-    }
-  }
+  return NextResponse.next(); // Continue to the next middleware or route handler
 }
 
 // Apply middleware to specific routes (e.g., dashboard, profile, etc.)
 export const config = {
-  matcher: ["/admin/secure/:path*", "/profile/:path", "/cart/:path", "/:path"],
+  matcher: ["/admin/secure/:path*", "/profile/:path", "/cart/:path"],
 };

@@ -7,7 +7,7 @@ export async function setCookie(value) {
 
   // Set the cookie with httpOnly, secure, and other attributes
   cookieStore.set({
-    name: 'myCookie',
+    name: 'token',
     value: value,
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production', // Use secure only in production
