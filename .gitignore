@@ -8,6 +8,5 @@
 ./client/.env
 ./server/.env
 
-vercel.json
 
 

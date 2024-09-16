@@ -16,7 +16,6 @@ const addToCart = async (req, res) => {
     const cartItemIndex = user.cart.findIndex(
       (item) => item.product.toString() === productId
     );
-    console.log(cartItemIndex, "cartindex");
     if (cartItemIndex > -1) {
       // If product exists, update the quantity
       user.cart[cartItemIndex].quantity += quantity;
@@ -35,7 +34,6 @@ const addToCart = async (req, res) => {
 // Remove a product from the cart
 const removeFromCart = async (req, res) => {
   const { id } = req.params;
-  console.log(id,"pid");
   const userId = req.userId;
 
   try {

@@ -39,8 +39,6 @@ const createProduct = async (req, res) => {
         (result) => result.secure_url
       );
     }
-    console.log(additionalImages);
-    console.log(imageResult.secure_url);
 
     const newProduct = new Products({
       name,
@@ -132,8 +130,6 @@ const updateProduct = async (req, res) => {
     product.MRPprice = MRPprice || product.MRPprice;
     product.sellingPrice = sellingPrice || product.sellingPrice;
     product.category = category || product.category;
-    // product.image = image || product.image;
-    // product.additionalImages = additionalImages || product.additionalImages
     product.trend = trend || product.trend;
     product.offer = offer || product.offer;
     product.vendor = vendor || product.vendor;

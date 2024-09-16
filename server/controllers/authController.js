@@ -34,7 +34,7 @@ const login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "None",
     });
 
     res.status(200).json({ message: "Login successful" });
@@ -54,7 +54,6 @@ const logout = (req, res) => {
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
-  console.log(name, email, password);
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
