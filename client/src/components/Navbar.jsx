@@ -34,10 +34,11 @@ const Navbar = () => {
       toast.success("Logout Successfully");
 
       if (path === "/") {
-        router.reload();
+        location.reload();
       } else {
         // router.reload();
         router.push("/");
+        location.reload();
       }
     } catch (error) {
       console.error(error);
