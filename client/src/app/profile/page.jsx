@@ -2,6 +2,7 @@
 
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
+import Link from "next/link";
 import { useEffect } from "react";
 
 export default function Page() {
@@ -44,6 +45,9 @@ export default function Page() {
                   <h1 className="font-semibold text-xl">Email :</h1>
 
                   <h1 className="pt-2">{userData.email}</h1>
+                </div>
+                <div className="py-5">
+                  <Link href={"/profile/edit"} className="py-2 px-5 text-white bg-black rounded-md">Edit Profile</Link>
                 </div>
               </div>
             </div>

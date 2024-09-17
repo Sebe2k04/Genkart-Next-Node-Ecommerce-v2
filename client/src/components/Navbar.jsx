@@ -16,11 +16,10 @@ import { toast } from "react-toastify";
 import { removeCookie } from "@/actions/removeCookie";
 
 const Navbar = () => {
-  
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const path = usePathname();
-  const { userAuth } = useGlobalContext();
+  const { userAuth, userData } = useGlobalContext();
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -32,11 +31,11 @@ const Navbar = () => {
       console.log(res.data);
       removeCookie("token");
       toast.success("Logout Successfully");
-      
-      if(path === "/"){
+
+      if (path === "/") {
         router.reload();
-      }
-      else{router.push("/");
+      } else {
+        router.push("/");
       }
     } catch (error) {
       console.error(error);
@@ -66,11 +65,19 @@ const Navbar = () => {
                   </Link>
                   <div className="relative group">
                     <button className="">
-                      <img
-                        src="/profile.png"
-                        alt=""
-                        className="w-10 rounded-full"
-                      />
+                      {userData ? (
+                        <img
+                          src={userData.profileImage}
+                          alt=""
+                          className="w-10 rounded-full"
+                        />
+                      ) : (
+                        <img
+                          src="/profile.png"
+                          alt=""
+                          className="w-10 rounded-full"
+                        />
+                      )}
                     </button>
                     <div className="absolute right-0 pt-2 bg-transparent text-gray-400 hidden group-hover:block hover:block">
                       <div className="container bg-white px-5 pt-3 pb-1 w-full shadow-lg rounded-xl ">
@@ -137,7 +144,7 @@ const Navbar = () => {
         </main>
       </div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
-        <section className="flex flex-col justify-between w-full min-w-[150px] min-h-[100vh] px-10">
+        <section className="flex flex-col justify-between w-full min-w-[150px] h-[100vh] px-10">
           <div className="">
             <div className="flex justify-end pt-10">
               <IoMdClose className="text-4xl" onClick={toggleDrawer(false)} />
@@ -155,9 +162,13 @@ const Navbar = () => {
                 />
                 <IoSearch className="text-3xl text-zinc-400 ml-[-40px] border-l pl-2 bg-zinc-100/30" />
               </section> */}
-            <div className="flex  flex-col gap-5  pt-10 text-center">
-              <Link href={"/"}>Home</Link>
-              <Link href={"/product"}>Explore</Link>
+            <div className="flex  flex-col gap-5  pt-10 ">
+              <Link onClick={() => setOpen(false)} href={"/"}>
+                Home
+              </Link>
+              <Link onClick={() => setOpen(false)} href={"/product"}>
+                Explore
+              </Link>
               <div className="relative group">
                 <button className="">Categories</button>
                 <div className="absolute left-0 pt-5 bg-transparent text-gray-400 hidden group-hover:block hover:block">
@@ -165,13 +176,28 @@ const Navbar = () => {
                     <div className=" min-w-fit text-sm">
                       <ul>
                         <li className="mb-2 hover:text-black">
-                          <Link href="/categories/casuals">Casuals</Link>
+                          <Link
+                            onClick={() => setOpen(false)}
+                            href="/categories/casuals"
+                          >
+                            Casuals
+                          </Link>
                         </li>
                         <li className="mb-2 hover:text-black">
-                          <Link href="/categories/tshirts">T shirts</Link>
+                          <Link
+                            onClick={() => setOpen(false)}
+                            href="/categories/tshirts"
+                          >
+                            T shirts
+                          </Link>
                         </li>
                         <li className="mb-2 hover:text-black">
-                          <Link href="/categories/">All&nbsp;Categories</Link>
+                          <Link
+                            onClick={() => setOpen(false)}
+                            href="/categories/"
+                          >
+                            All&nbsp;Categories
+                          </Link>
                         </li>
                       </ul>
                     </div>
@@ -186,13 +212,13 @@ const Navbar = () => {
             <div className="">
               {userAuth ? (
                 <section className="grid gap-4">
-                  <div className="flex justify-center">
+                  <div className="flex ">
                     <Link href={"/cart"}>Cart</Link>
                   </div>
-                  <div className="flex justify-center">
+                  <div className="flex ">
                     <Link href={"/profile"}>Profile</Link>
                   </div>
-                  <section className="flex justify-center pb-5">
+                  <section className="flex  pb-5">
                     <button
                       onClick={handleLogout}
                       className="bg-black text-white px-4 py-1 rounded-xl"
