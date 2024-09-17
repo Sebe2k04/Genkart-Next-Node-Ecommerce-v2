@@ -5,6 +5,8 @@ import Link from "next/link";
 import { axiosInstance } from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import Image from "next/image";
+
 
 const CartProduct = ({ product, quantity }) => {
   const { userData, setUserData } = useGlobalContext();
