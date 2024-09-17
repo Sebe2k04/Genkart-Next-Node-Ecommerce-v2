@@ -9,10 +9,9 @@ import { GiShoppingCart } from "react-icons/gi";
 import { BiSolidOffer } from "react-icons/bi";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
-import { FaLinkedin } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
 import Loader from "@/components/Loader";
 import Image from "next/image";
+import SmallFooter from "@/components/SmallFooter";
 
 export default function Page() {
   const { id } = useParams();
@@ -177,32 +176,7 @@ export default function Page() {
       ) : (
         <Loader />
       )}
-      <div className="flex justify-center capitalize pt-10 text-gray-400">
-        <div className="">
-          <h1 className="text-center">
-            A product of{" "}
-            <span>
-              <Link
-                href={"https://sebe2k04.vercel.app/"}
-                about="_blank"
-                className="px-1 text-black "
-              >
-                {" "}
-                Sebe{" "}
-              </Link>
-            </span>{" "}
-            | GenRio
-          </h1>
-          <div className="flex justify-center gap-5 text-black text-2xl pt-5">
-            <Link href={"https://www.linkedin.com/in/sebe2k04/"}>
-              <FaLinkedin />
-            </Link>
-            <Link href={"https://github.com/Sebe2k04"}>
-              <FaGithub />
-            </Link>
-          </div>
-        </div>
-      </div>
+      <SmallFooter/>
     </div>
   );
 }
