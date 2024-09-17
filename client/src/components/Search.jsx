@@ -13,7 +13,6 @@ const Search = () => {
     setTerm(e.target.value);
   };
 
-  console.log(path,"path")
   const handleSearch = () => {
     setSearchTerm(term);
     // if (path === "/product" || path.startsWith("/admin")) {

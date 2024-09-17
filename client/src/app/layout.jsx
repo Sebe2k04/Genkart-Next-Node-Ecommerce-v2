@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 // import Navbar from "@/components/Navbar";
 import NavbarHandler from "@/components/NavbarHandler";
 import DataProvider from "@/context/GlobalProvider";
-import Footer from "@/components/Footer";
 import SEO from "@/components/seo/SEO";
+import FooterHandler from "@/components/FooterHandler";
 // axios.defaults.withCredentials = true;
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,8 +40,9 @@ export default function RootLayout({ children }) {
           {children}
           <ToastContainer />
           <UserAuth />
+          <FooterHandler />
         </DataProvider>
-        <Footer />
+        
       </body>
     </html>
   );
