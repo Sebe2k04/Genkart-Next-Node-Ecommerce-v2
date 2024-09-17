@@ -3,16 +3,24 @@ import { axiosInstance } from "@/utils/axiosConfig";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { FaOpencart, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { toast } from "react-toastify";
 
 export default function Page() {
+  
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <ResetPassword />
+    </Suspense>
+  );
+}
+
+const ResetPassword = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [token,setToken] = useState("")
-  
+  const [token, setToken] = useState("");
 
   const [show, setShow] = useState(false);
   const handleShow = () => {
@@ -21,16 +29,16 @@ export default function Page() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  useEffect(()=>{
-    setToken(searchParams.get('token'))
-  },[])
+  useEffect(() => {
+    setToken(searchParams.get("token"));
+  }, []);
   console.log(password);
   const handleReset = async (e) => {
     e.preventDefault();
-    if(password === confirmPassword){
+    if (password === confirmPassword) {
       try {
         const res = await axiosInstance.put("/auth/reset-password", {
-          newPassword : password,
+          newPassword: password,
           token,
         });
         console.log(res.data);
@@ -40,9 +48,8 @@ export default function Page() {
         console.error(error);
         toast.error("Error on password reset");
       }
-    }
-    else{
-      toast.error('Password must be same')
+    } else {
+      toast.error("Password must be same");
     }
   };
   return (
@@ -70,7 +77,11 @@ export default function Page() {
                   remember your password from now on !
                 </h3>
               </div>
-              <form action="" onSubmit={handleReset} className="grid gap-2 pt-5">
+              <form
+                action=""
+                onSubmit={handleReset}
+                className="grid gap-2 pt-5"
+              >
                 <div className="grid gap-2">
                   <label htmlFor="" className="font-semibold">
                     Password
@@ -167,4 +178,4 @@ export default function Page() {
       </div>
     </div>
   );
-}
+};
