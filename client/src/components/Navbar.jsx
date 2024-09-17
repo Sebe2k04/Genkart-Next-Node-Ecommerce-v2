@@ -19,7 +19,7 @@ const Navbar = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const path = usePathname();
-  const { userAuth, userData } = useGlobalContext();
+  const { userAuth, setUserAuth, userData } = useGlobalContext();
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -30,11 +30,13 @@ const Navbar = () => {
       const res = await axiosInstance.post("/auth/logout");
       console.log(res.data);
       removeCookie("token");
+      setUserAuth(false);
       toast.success("Logout Successfully");
 
       if (path === "/") {
         router.reload();
       } else {
+        // router.reload();
         router.push("/");
       }
     } catch (error) {
