@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-const SEO = ({ title, description, keywords, image, url }) => {
+const SEO = ({ title, description, keywords, image, url,author }) => {
   return (
     <Head>
       {/* Basic Meta Tags */}
@@ -8,6 +8,7 @@ const SEO = ({ title, description, keywords, image, url }) => {
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="author" content={author} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
