@@ -61,7 +61,7 @@ export default function Page() {
 
   return (
     <div className="lg:px-20 px-8 py-5">
-      <div className="flex lg:justify-end items-center  justify-between">
+      <div className="flex lg:justify-end items-center gap-3 justify-between">
         <div className="lg:hidden">
           <Search />
         </div>

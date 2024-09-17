@@ -223,21 +223,50 @@ const getProductById = async (req, res) => {
 };
 
 const trendProducts = async (req, res) => {
-  console.log("trend")
+  const { search, page = 1, limit = 8 } = req.query;
+  console.log("trend");
+  const query = {};
+
   try {
-    const products = await Products.find({ trend: true });
-    res.status(200).json(products);
+    if (search) {
+      console.log("s");
+      query.name = { $regex: search, $options: "i" };
+    }
+    query.trend = true;
+    const products = await Products.find(query)
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+    const totalProducts = await Products.countDocuments(query);
+    const totalPages = Math.ceil(totalProducts / limit);
+    res.status(200).json({ products, totalPages });
   } catch (error) {
     res.status(500).json({ message: "Error fetching products", error });
   }
 };
 
 const offerProducts = async (req, res) => {
+  const { search, page = 1, limit = 8 } = req.query;
+  const query = {};
+
   try {
-    const products = await Products.find({ offer: true });
-    res.status(200).json(products);
+    console.log("offer");
+
+    if (search) {
+      console.log("s");
+      query.name = { $regex: search, $options: "i" };
+    }
+    query.offer = true;
+
+    console.log(query,"query");
+    const products = await Products.find(query)
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+    console.log(products);
+    const totalProducts = await Products.countDocuments(query);
+    const totalPages = Math.ceil(totalProducts / limit);
+    res.status(200).json({ products, totalPages });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching products", error });
+    res.status(500).json({ message: "Error fetching Offer products", error });
   }
 };
 

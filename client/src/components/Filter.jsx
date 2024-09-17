@@ -127,7 +127,7 @@ const Filter = () => {
               className="bg-black text-white flex gap-2 px-3 py-2 rounded-md items-center cursor-pointer "
             >
               <FaFilter className="text-xl" />
-              <h2 className="lg:flex hidden">Apply Filters</h2>
+              <h2 className="">Apply Filters</h2>
             </div>
           </div>
         </DialogFooter>

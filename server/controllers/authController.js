@@ -71,11 +71,11 @@ const signup = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
-
+console.log(email)
   try {
     const user = await Users.findOne({ email });
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const resetToken = crypto.randomBytes(32).toString("hex");
@@ -88,15 +88,17 @@ const forgotPassword = async (req, res) => {
       "Password Reset",
       `Reset your password here: ${process.env.CLIENT_URL}/reset-password?token=${resetToken}`
     );
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "Password reset email sent" });
   } catch (error) {
-    res.status(500).json({ error: "Failed to send reset email" });
+    res.status(500).json({ message: "Failed to send reset email" });
   }
 };
 
 const resetPassword = async (req, res) => {
   const { token, newPassword } = req.body;
+
+  console.log(token, newPassword)
 
   try {
     const user = await Users.findOne({

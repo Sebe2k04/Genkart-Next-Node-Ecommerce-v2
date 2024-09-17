@@ -21,7 +21,7 @@ router.post("/signup", signup);
 
 router.post("/forgot-password", forgotPassword);
 
-router.post("/reset-password", resetPassword);
+router.put("/reset-password", resetPassword);
 
 router.post("/admin/login", adminLogin);
 

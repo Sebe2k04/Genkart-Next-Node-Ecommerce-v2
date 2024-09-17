@@ -28,20 +28,19 @@ const Search = () => {
   return (
     <div>
       <div className="flex justify-center items-center">
-        <div className=" border flex h-fit w-fit pr-3 rounded-xl">
+        <div className=" border flex h-fit w-fit rounded-xl ">
           <input
             type="text"
             defaultValue={searchTerm}
             name="search"
             id="search"
             onChange={handleInputChange}
-            className=" bg-inherit rounded-xl  lg:min-w-[300px] focus:outline-none py-2 px-5"
+            className=" rounded-xl  lg:min-w-[300px] lg:max-w-[400px] max-w-[200px] md:max-w-[300px] focus:outline-none py-2 px-5"
           />
-          <div className="flex items-center justify-end cursor-pointer  relative z-[100]">
-            <CiSearch
-              onClick={handleSearch}
-              className="text-2xl cursor-pointer"
-            />
+          <div onClick={handleSearch} className="">
+            <div className="flex items-center justify-center h-full cursor-pointer relative pr-3 pl-2 rounded-r-xl-3 z-[100]">
+              <CiSearch className="text-2xl cursor-pointer" />
+            </div>
           </div>
         </div>
       </div>

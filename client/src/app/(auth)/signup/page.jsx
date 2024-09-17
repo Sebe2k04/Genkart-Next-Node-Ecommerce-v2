@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaOpencart, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { IoIosArrowBack } from "react-icons/io";
 import { toast } from "react-toastify";
 
 export default function Page() {
@@ -54,6 +55,15 @@ export default function Page() {
 
   return (
     <div className="bg-gray-100 lg:p-10 p-2 lg:px-32 min-h-[100vh] w-full">
+    <div className="flex gap-2 items-center py-5 px-3">
+        <div
+          onClick={() => router.push("/")}
+          className="flex gap-1 items-center hover:font-semibold cursor-pointer hover:underline underline-offset-4"
+        >
+          <IoIosArrowBack />
+          <h1 className="pt-[3px]">Back to Home</h1>
+        </div>
+      </div>
       <div className=" grid gap-5 lg:grid-cols-2 bg-white p-5 rounded-2xl min-h-[90vh]">
         <div className="my-auto rounded-2xl">
           <Image
