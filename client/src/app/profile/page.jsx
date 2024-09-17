@@ -1,9 +1,10 @@
 "use client";
 
+import Loader from "@/components/Loader";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const { userData, setUserData } = useGlobalContext();
@@ -53,7 +54,7 @@ export default function Page() {
             </div>
           </div>
         ) : (
-          ""
+          <Loader/>
         )}
       </div>
     </div>

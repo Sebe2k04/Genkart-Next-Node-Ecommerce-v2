@@ -11,6 +11,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
+import Loader from "@/components/Loader";
+import Image from "next/image";
 
 export default function Page() {
   const { id } = useParams();
@@ -55,25 +57,51 @@ export default function Page() {
                     key={index}
                     className="mx-auto max-w-[100px] max-h-[100px] relative"
                   >
-                    <img
-                      
+                    <Image
                       src={image}
-                      alt=""
+                      width="500"
+                      height="500"
+                      alt="product image"
+                      priority={false}
+                      placeholder="blur"
+                      blurDataURL={image}
                       className="rounded-md max-w-[100px] max-h-[100px] aspect-square mx-auto object-cover "
                     />
                   </div>
                 ))}
-                <img
+                {/* <img
                   src={product.image}
                   onClick={() => setCurrentImage(product.image)}
                   alt=""
                   className="rounded-md mx-auto object-cover max-h-[100px] max-w-[100px] aspect-square"
+                /> */}
+                <Image
+                  src={product.image}
+                  width="500"
+                  height="500"
+                  onClick={() => setCurrentImage(product.image)}
+                  alt="product image"
+                  priority={false}
+                  placeholder="blur"
+                  blurDataURL={product.image}
+                  className="rounded-md mx-auto object-cover max-h-[100px] max-w-[100px] aspect-square"
                 />
               </div>
               <div className="md:col-span-3 lg:order-2 order-1">
-                <img
+                {/* <img
                   src={currentImage}
                   alt=""
+                  className="rounded-md w-full max-h-[400px] lg:max-h-full lg:w-full object-cover duration-200 "
+                /> */}
+
+                <Image
+                  src={currentImage}
+                  width="500"
+                  height="500"
+                  alt="product image"
+                  priority={false}
+                  placeholder="blur"
+                  blurDataURL={currentImage}
                   className="rounded-md w-full max-h-[400px] lg:max-h-full lg:w-full object-cover duration-200 "
                 />
               </div>
@@ -147,7 +175,7 @@ export default function Page() {
           </div>
         </div>
       ) : (
-        ""
+        <Loader />
       )}
       <div className="flex justify-center capitalize pt-10 text-gray-400">
         <div className="">

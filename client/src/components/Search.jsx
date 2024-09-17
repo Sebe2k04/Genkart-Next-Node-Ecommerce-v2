@@ -12,17 +12,23 @@ const Search = () => {
   const handleInputChange = (e) => {
     setTerm(e.target.value);
   };
+
+  console.log(path,"path")
   const handleSearch = () => {
     setSearchTerm(term);
-    if (path === "/product" || path.startsWith("/admin")) {
-      console.log("searchpath");
-    } else {
-      router.push("/product");
+    // if (path === "/product" || path.startsWith("/admin")) {
+    //   console.log("searchpath");
+    // } else {
+    //   router.push("/product");
+    // }
+    if(path=== "/"){
+      router.push("/product")
     }
   };
 
   useEffect(() => {
     console.log(searchTerm);
+    setTerm(searchTerm)
   }, [searchTerm]);
 
   return (
@@ -31,9 +37,9 @@ const Search = () => {
         <div className=" border flex h-fit w-fit rounded-xl ">
           <input
             type="text"
-            defaultValue={searchTerm}
             name="search"
             id="search"
+            value={term}
             onChange={handleInputChange}
             className=" rounded-xl  lg:min-w-[300px] lg:max-w-[400px] max-w-[200px] md:max-w-[300px] focus:outline-none py-2 px-5"
           />

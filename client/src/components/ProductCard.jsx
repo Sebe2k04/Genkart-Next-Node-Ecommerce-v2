@@ -4,6 +4,7 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import Link from "next/link";
 import { axiosInstance } from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 const ProductCard = ({ product }) => {
   const handleCart = async (id) => {
@@ -25,9 +26,21 @@ const ProductCard = ({ product }) => {
       <Link href={`/product/${product._id}`}>
         <div className="flex justify-center">
           <div className="aspect-square	 object-cover">
-            <img
+            {/* <img
               src={product.image}
+              loading="lazy"
               alt=""
+              className=" object-cover max-w-[250px] max-h-[250px] lg:max-w-[200px] lg:max-h-[200px] rounded-md aspect-square	"
+            /> */}
+
+            <Image
+              src={product.image}
+              width="500"
+              height="500"
+              alt="product image"
+              priority={false}
+              placeholder="blur"
+              blurDataURL={product.image}
               className=" object-cover max-w-[250px] max-h-[250px] lg:max-w-[200px] lg:max-h-[200px] rounded-md aspect-square	"
             />
           </div>

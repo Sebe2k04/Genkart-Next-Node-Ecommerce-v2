@@ -1,4 +1,5 @@
 "use client";
+import Loader from "@/components/Loader";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
 import Image from "next/image";
@@ -53,7 +54,7 @@ export default function Page() {
       <div className="">
         <h1>Edit Profile</h1>
       </div>
-      {userData && (
+      {userData ? (
         <div className="">
           {/* <div className="pt-5">
             <h1 className="text-center">Image</h1>
@@ -119,7 +120,7 @@ export default function Page() {
             </form>
           </div>
         </div>
-      )}
+      ) : <Loader/>}
     </div>
   );
 }

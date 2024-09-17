@@ -1,4 +1,5 @@
 "use client";
+import Loader from "@/components/Loader";
 import Pagination from "@/components/Pagination";
 import ProductCard from "@/components/ProductCard";
 import Search from "@/components/Search";
@@ -24,11 +25,14 @@ export default function Page() {
   // }, []);
   const [PaginatedValue, setPaginatedValue] = useState(1);
 
+  const [loading, setLoading] = useState(true);
+
   const { searchTerm, setSearchTerm, pagination, setPagination } =
     useGlobalContext();
 
   useEffect(() => {
     setPagination({ ...pagination, currentPage: 1 });
+    setSearchTerm("");
   }, []);
 
   useEffect(() => {
@@ -39,6 +43,7 @@ export default function Page() {
   }, [PaginatedValue]);
 
   useEffect(() => {
+    setLoading(true);
     const fetchCategory = async () => {
       const query = new URLSearchParams({
         search: searchTerm,
@@ -49,6 +54,7 @@ export default function Page() {
         console.log(res.data.products);
         setProducts(res.data.products);
         setPaginatedValue(res.data.totalPages);
+        setLoading(false);
       } catch (error) {
         console.error(error);
         toast.error("Error fetching category");
@@ -69,14 +75,18 @@ export default function Page() {
       <div className="lg:hidden pb-10">
         <Search />
       </div>
-      <div className="lg:grid-cols-4 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 gap-8 py-5 pb-24">
-        {products &&
-          products.map((product, index) => (
-            <div key={index} className="m-auto p-2">
-              <ProductCard product={product} />
-            </div>
-          ))}
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="lg:grid-cols-4 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 gap-8 py-5 pb-24">
+          {products &&
+            products.map((product, index) => (
+              <div key={index} className="m-auto p-2">
+                <ProductCard product={product} />
+              </div>
+            ))}
+        </div>
+      )}
       <div className="flex justify-center">
         <Pagination />
       </div>
