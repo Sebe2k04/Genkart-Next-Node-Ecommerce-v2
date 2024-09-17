@@ -4,8 +4,6 @@ import UserAuth from "@/components/secure/UserAuth";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import axios from 'axios';
-// import Navbar from "@/components/Navbar";
 import NavbarHandler from "@/components/NavbarHandler";
 import DataProvider from "@/context/GlobalProvider";
 import SEO from "@/components/seo/SEO";

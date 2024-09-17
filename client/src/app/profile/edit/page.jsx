@@ -19,7 +19,7 @@ export default function Page() {
     const file = e.target.files[0]; // Get the first file
     setImage(file)
     if (file) {
-      console.log(file, "infile");
+      // console.log(file, "infile");
 
       const imageUrl = URL.createObjectURL(file); // Create a temporary URL for the image
       setImageSrc(imageUrl); // Set the image source
@@ -41,7 +41,7 @@ export default function Page() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(res.data);
+      // console.log(res.data);
       toast.success("Updated Successfully");
       router.push("/profile");
     } catch (error) {

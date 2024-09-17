@@ -15,7 +15,7 @@ export default function Page() {
     const fetchCart = async () => {
       try {
         const res = await axiosInstance.get("/cart");
-        console.log(res.data.cart);
+        // console.log(res.data.cart);
         setUserData({ ...userData, cart: res.data });
         setLoading(false);
       } catch (error) {

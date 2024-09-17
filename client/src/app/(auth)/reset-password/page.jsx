@@ -41,7 +41,7 @@ const ResetPassword = () => {
           newPassword: password,
           token,
         });
-        console.log(res.data);
+        // console.log(res.data);
         toast.success("Password reset successfully");
         router.push("/login");
       } catch (error) {

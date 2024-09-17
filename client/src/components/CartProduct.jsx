@@ -1,6 +1,5 @@
 import React from "react";
 import { GiShoppingCart } from "react-icons/gi";
-import { FaIndianRupeeSign } from "react-icons/fa6";
 import Link from "next/link";
 import { axiosInstance } from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
@@ -12,10 +11,8 @@ const CartProduct = ({ product, quantity }) => {
   const { userData, setUserData } = useGlobalContext();
 
   const handleRemoveProduct = async (id) => {
-    console.log(id);
     try {
       const res = await axiosInstance.delete(`/cart/${id}`);
-      console.log(res.data);
       setUserData({ ...userData, cart: res.data });
       toast.success("Product removed to Cart");
     } catch (error) {

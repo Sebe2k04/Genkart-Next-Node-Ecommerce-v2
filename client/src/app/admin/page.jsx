@@ -30,7 +30,7 @@ export default function Page() {
         email,
         password,
       });
-      console.log(res.data);
+      // console.log(res.data);
       await setCookie("adminToken", res.data.adminToken);
       router.push("/admin/secure/dashboard");
       toast.success("Logged In Successfully");

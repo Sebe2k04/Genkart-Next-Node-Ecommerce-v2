@@ -2,8 +2,6 @@
 import { setCookie } from "@/actions/setCookie";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
-import Cookies from "js-cookie";
-import { Truculenta } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,12 +20,11 @@ export default function Page() {
   };
   const { setUserAuth } = useGlobalContext();
   const handleLogin = async (e) => {
-    Cookies.set("name", "value", { expires: 365, httpOnly: true });
 
     e.preventDefault();
     try {
       const res = await axiosInstance.post("/auth/login", { email, password });
-      console.log(res.data);
+      // console.log(res.data);
       await setCookie("token", res.data.token);
       setUserAuth(true);
       router.push("/");

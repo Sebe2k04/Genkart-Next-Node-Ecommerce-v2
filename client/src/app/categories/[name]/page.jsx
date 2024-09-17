@@ -39,7 +39,7 @@ export default function Page() {
       }).toString();
       try {
         const res = await axiosInstance.get(`/product?${query}`);
-        console.log(res.data.products);
+        // console.log(res.data.products);
         setProducts(res.data.products);
         setPaginatedValue(res.data.totalPages);
         setLoading(false);

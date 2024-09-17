@@ -10,19 +10,7 @@ import { toast } from "react-toastify";
 
 export default function Page() {
   const [products, setProducts] = useState([]);
-  // useEffect(() => {
-  //   const fetchTrend = async () => {
-  //     try {
-  //       const res = await axiosInstance.get("/product/filter/offer");
-  //       console.log(res.data);
-  //       setProducts(res.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //       toast.error("Error fetching offer products");
-  //     }
-  //   };
-  //   fetchTrend();
-  // }, []);
+
   const [PaginatedValue, setPaginatedValue] = useState(1);
 
   const [loading, setLoading] = useState(true);
@@ -51,7 +39,7 @@ export default function Page() {
       }).toString();
       try {
         const res = await axiosInstance.get(`/product/filter/trend?${query}`);
-        console.log(res.data.products);
+        // console.log(res.data.products);
         setProducts(res.data.products);
         setPaginatedValue(res.data.totalPages);
         setLoading(false);

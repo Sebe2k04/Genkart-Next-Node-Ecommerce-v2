@@ -23,9 +23,9 @@ export default function Page() {
     userData,
     setUserData,
   } = useGlobalContext();
-  console.log(searchTerm, "in p");
-  console.log(pagination, "in p");
-  console.log(filters, "in p");
+  // console.log(searchTerm, "in p");
+  // console.log(pagination, "in p");
+  // console.log(filters, "in p");
   const [PaginatedValue, setPaginatedValue] = useState(1);
 
   const [loading, setLoading] = useState(true);
@@ -52,7 +52,7 @@ export default function Page() {
       }).toString();
       try {
         const res = await axiosInstance.get(`/product?${query}`);
-        console.log(res.data);
+        // console.log(res.data);
         setProducts(res.data.products);
         setPaginatedValue(res.data.totalPages);
         setLoading(false);

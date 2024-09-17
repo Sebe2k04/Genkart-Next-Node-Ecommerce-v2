@@ -7,10 +7,10 @@ const userAuth = () => {
   const userToken =  cookieStore.get("token"); 
   let auth = false;
   if(!userToken){
-    console.log("No token available");
+    // console.log("No token available");
   }else{
     auth = true;
-    console.log("Token available");
+    // console.log("Token available");
   }
   return (
     <SetUserAuth token={userToken} auth={auth} />

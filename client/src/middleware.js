@@ -12,7 +12,7 @@ export async function middleware(req,res) {
     req.nextUrl.pathname.startsWith("/profile") ||
     req.nextUrl.pathname.startsWith("/cart")
   ) {
-    console.log("user route middleware");
+    // console.log("user route middleware");
 
     const userResponse = await normalUserAuth(req);
     if (userResponse) return userResponse;

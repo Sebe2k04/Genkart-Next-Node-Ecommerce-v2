@@ -5,7 +5,6 @@ import { useGlobalContext } from "@/context/GlobalProvider";
 
 const Pagination = () => {
   const { pagination, setPagination } = useGlobalContext();
-  console.log(pagination.currentPage,"p")
   const next = () => {
     if (pagination.currentPage === pagination.totalPages) return;
 

@@ -25,7 +25,7 @@ export default function Page() {
       const res = await axiosInstance.post("/auth/forgot-password", {
         email,
       });
-      console.log(res.data.message);
+      // console.log(res.data.message);
       toast.success("Mail Sent Successfully");
       setMailStatus(true);
     } catch (error) {

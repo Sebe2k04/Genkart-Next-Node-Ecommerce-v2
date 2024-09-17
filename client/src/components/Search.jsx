@@ -26,7 +26,7 @@ const Search = () => {
   };
 
   useEffect(() => {
-    console.log(searchTerm);
+    // console.log(searchTerm);
     setTerm(searchTerm)
   }, [searchTerm]);
 

@@ -14,7 +14,7 @@ export default function Page() {
       try {
         const res = await axiosInstance.get("/user/me");
         setUserData(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -22,7 +22,7 @@ export default function Page() {
     fecthUser();
   }, []);
 
-  console.log(userData);
+  // console.log(userData);
   return (
     <div className="lg:px-20 px-8 py-10">
       <div className="">

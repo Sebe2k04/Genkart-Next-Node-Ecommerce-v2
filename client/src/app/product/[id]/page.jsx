@@ -23,7 +23,7 @@ export default function Page() {
     const fetchProduct = async () => {
       try {
         const res = await axiosInstance.get(`/product/${id}`);
-        console.log(res.data);
+        // console.log(res.data);
         setProduct(res.data);
         setCurrentImage(res.data.image);
       } catch (error) {

@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 const FooterHandler = () => {
   const path = usePathname();
-  console.log(path,"footer");
   return (
     <div>
       <div>

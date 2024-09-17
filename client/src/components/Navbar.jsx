@@ -28,7 +28,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const res = await axiosInstance.post("/auth/logout");
-      console.log(res.data);
+      // console.log(res.data);
       removeCookie("token");
       setUserAuth(false);
       toast.success("Logout Successfully");

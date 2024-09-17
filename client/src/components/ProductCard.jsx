@@ -8,13 +8,12 @@ import Image from "next/image";
 
 const ProductCard = ({ product }) => {
   const handleCart = async (id) => {
-    console.log(id);
     try {
       const res = await axiosInstance.post("/cart", {
         productId: id,
         quantity: 1,
       });
-      console.log(res.data);
+      // console.log(res.data);
       toast.success("Product added to Cart");
     } catch (error) {
       console.log(error);

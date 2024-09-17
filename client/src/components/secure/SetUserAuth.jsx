@@ -11,7 +11,7 @@ const SetUserAuth = ({ token, auth }) => {
     const fetchUserData = async () => {
       try {
         const res = await axiosInstance.get("/user/me");
-        console.log(res.data);
+        // console.log(res.data);
         setUserData(res.data);
       } catch (error) {
         console.log(error);
@@ -21,7 +21,7 @@ const SetUserAuth = ({ token, auth }) => {
     const authCheck = () => {
       if (auth) {
         setUserAuth(auth);
-        console.log("token is available");
+        // console.log("token is available");
         fetchUserData();
       } else {
         setUserAuth(false);

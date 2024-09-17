@@ -43,7 +43,7 @@ export default function Page() {
         email,
         password,
       });
-      console.log(res);
+      // console.log(res);
       toast.success("Account created", {
         autoClose: 3000, // Closes after 3 seconds
       });
