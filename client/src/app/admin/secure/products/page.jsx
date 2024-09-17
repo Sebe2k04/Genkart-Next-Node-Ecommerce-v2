@@ -23,6 +23,7 @@ import { BiSolidOffer } from "react-icons/bi";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import Pagination from "@/components/Pagination";
+import Loader from "@/components/Loader";
 
 export default function Page() {
   const [openView, setOpenView] = useState(false);
@@ -33,6 +34,8 @@ export default function Page() {
   const [currentImage, setCurrentImage] = useState("");
 
   const [PaginatedValue, SetPaginatedValue] = useState(1);
+
+  const [loading, setLoading] = useState(true);
 
   const handleOpenView = (data) => {
     setProduct(data);
@@ -74,7 +77,6 @@ export default function Page() {
 
   useEffect(() => {
     if (PaginatedValue == pagination.totalPages) {
-      
     } else {
       setPagination({ ...pagination, totalPages: res.data.totalPages });
     }
@@ -95,12 +97,14 @@ export default function Page() {
 
         setProducts(res.data.products);
         SetPaginatedValue(res.data.totalPages);
+        setLoading(false);
       } catch (error) {
         toast.error("Error fetching Product");
         console.error(error);
       }
     };
     return async () => {
+      setLoading(true);
       await fetchProducts();
     };
   }, [searchTerm, filters, modified, pagination]);
@@ -322,7 +326,10 @@ export default function Page() {
           <h1>Create</h1>
         </Link>
       </div>
-      {products && (
+      {
+        loading ? <Loader/> : (
+          <div className="">
+            {products && (
         <div className="w-full overflow-x-scroll pb-20">
           <table className="table-auto w-full">
             <thead>
@@ -403,6 +410,9 @@ export default function Page() {
         </div>
       )}
 
+          </div>
+        )
+      }
       <div className="flex justify-center py-5">
         <Pagination />
       </div>

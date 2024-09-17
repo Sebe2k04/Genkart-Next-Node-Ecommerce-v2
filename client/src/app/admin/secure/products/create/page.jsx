@@ -113,7 +113,7 @@ export default function Page() {
       </div>
       <div className="lg:flex justify-between items-center ">
         <div className="flex gap-2 items-center">
-          <Link href={"/admin/secure/home"}>
+          <Link href={"/admin/secure/products"}>
             <IoIosArrowBack />
           </Link>
 
@@ -226,7 +226,7 @@ export default function Page() {
           </div>
           <div className="grid gap-3">
             <label className=" text-sm font-medium text-gray-700">
-              Additional Images
+              Additional Images - <span className="text-red-400">Max 2 images</span>
             </label>
             {/* <input
               type="text"

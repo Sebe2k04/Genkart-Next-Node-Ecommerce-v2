@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { axiosInstance } from "@/utils/axiosConfig";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 export default function Page() {
   const categories = [
@@ -60,8 +61,8 @@ export default function Page() {
         setDescription(res.data.description);
         setTrend(res.data.trend);
         setOffer(res.data.offer);
-        setImage(res.data.image);
-        setAdditionalImages(res.data.additionalImages);
+        // setImage(res.data.image);
+        // setAdditionalImages(res.data.additionalImages);
       } catch (error) {
         console.error(error);
       }
@@ -74,11 +75,11 @@ export default function Page() {
   const MAX_LENGTH = 2;
   const handleReset = () => {
     if (inputFile.current) {
-        inputFile.current.value = "";
-        inputFile.current.type = "text";
-        inputFile.current.type = "file";
+      inputFile.current.value = "";
+      inputFile.current.type = "text";
+      inputFile.current.type = "file";
     }
-};
+  };
   const handleAdditionalImages = (e) => {
     if (Array.from(e.target.files).length > MAX_LENGTH) {
       e.preventDefault();
@@ -103,12 +104,16 @@ export default function Page() {
     formdata.append("category", category);
     formdata.append("trend", trend);
     formdata.append("offer", offer);
-    formdata.append("image", image);
+    if (image) {
+      formdata.append("image", image);
+    }
     // let additionalImagesData = JSON.parse(additionalImages)
     // additionalImagesData.forEach((img) => formdata.append('additionalImages', img))
 
-    for (let i = 0; i < additionalImages.length; i++) {
-      formdata.append("additionalImages", additionalImages[i]);
+    if (additionalImages.length > 0) {
+      for (let i = 0; i < additionalImages.length; i++) {
+        formdata.append("additionalImages", additionalImages[i]);
+      }
     }
 
     try {
@@ -141,11 +146,11 @@ export default function Page() {
         <div className="lg:px-10 px-8 py-8 lg:pt-8 pt-24">
           <div className="lg:flex justify-between items-center ">
             <div className="flex gap-2 items-center">
-              <Link href={"/admin/secure/home"}>
+              <Link href={"/admin/secure/products"}>
                 <IoIosArrowBack />
               </Link>
 
-              <h1 className="text-xl font-semibold">Create Product</h1>
+              <h1 className="text-xl font-semibold">Update Product</h1>
             </div>
             <div className="flex justify-center lg:block pt-5 lg:pt-0">
               <Link
@@ -253,15 +258,22 @@ export default function Page() {
                 />
               </div>
               <div className="">
-                <h1>Old image</h1>
+                <h1>Image</h1>
                 <div className="flex flex-wrap py-5">
                   {/* <img src={URL.createObjectURL(image)} alt="" className="w-[300px]" /> */}
-                  <img src={oldData.image} alt="" className="w-[300px]" />
+                  <Image
+                    src={image ? URL.createObjectURL(image) : oldData.image}
+                    width="1000"
+                    height="1000"
+                    alt=""
+                    className="w-[300px] rounded-xl"
+                  />
                 </div>
               </div>
               <div className="grid gap-3">
                 <label className=" text-sm font-medium text-gray-700">
-                  Additional Images
+                  Additional Images -{" "}
+                  <span className="text-red-400">Max 2 images</span>
                 </label>
                 {/* <input
               type="text"
@@ -280,20 +292,40 @@ export default function Page() {
                 />
               </div>
               <div className="">
-                <h1>Old Additional image</h1>
-                <div className="flex flex-wrap py-5">
-                  {oldData.additionalImages.map((image, index) => (
-                    <div key={index} className="">
-                      {/* <img src={URL.createObjectURL(image)} alt="" key={index} /> */}
-                      <img
-                        src={image}
-                        alt=""
-                        key={index}
-                        className="w-[300px] p-5"
-                      />
-                    </div>
-                  ))}
-                </div>
+                <h1>Additional image</h1>
+                {additionalImages.length > 0 ? (
+                  <div className="flex flex-wrap py-5">
+                    <Image
+                      width="1000"
+                      height="1000"
+                      src={URL.createObjectURL(additionalImages[0])}
+                      alt=""
+                      className="w-[300px] rounded-xl aspect-square object-cover p-5"
+                    />
+                    <Image
+                      width="1000"
+                      height="1000"
+                      src={URL.createObjectURL(additionalImages[1])}
+                      alt=""
+                      className="w-[300px] rounded-xl aspect-square object-cover p-5"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap py-5">
+                    {oldData.additionalImages.map((image, index) => (
+                      <div key={index} className="">
+                        {/* <img src={URL.createObjectURL(image)} alt="" key={index} /> */}
+                        <Image
+                          width="1000"
+                          height="1000"
+                          src={image}
+                          alt=""
+                          className="w-[300px] rounded-xl aspect-square object-cover p-5"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="grid gap-3">
                 <label className=" text-sm font-medium text-gray-700">
