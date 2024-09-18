@@ -1,11 +1,12 @@
 "use client";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { axiosInstance } from "@/utils/axiosConfig";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const SetUserAuth = ({ token, auth }) => {
-  const router = useRouter();
+  // const router = useRouter();
+  const path = usePathname();
   const { userAuth, setUserAuth, userData, setUserData } = useGlobalContext();
   useEffect(() => {
     const fetchUserData = async () => {
@@ -19,16 +20,22 @@ const SetUserAuth = ({ token, auth }) => {
     };
 
     const authCheck = () => {
-      if (auth) {
+      if (auth && userAuth) {
         setUserAuth(auth);
         // console.log("token is available");
-        fetchUserData();
+        if (userData) {
+          // console.log("user data is available");
+        } else {
+          fetchUserData();
+          // console.log("user data is not available");
+        }
       } else {
         setUserAuth(false);
+        setUserData(null);
       }
     };
     authCheck();
-  }, [userAuth]);
+  }, [path]);
   return <div></div>;
 };
 

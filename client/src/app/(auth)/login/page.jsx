@@ -28,6 +28,8 @@ export default function Page() {
       await setCookie("token", res.data.token);
       setUserAuth(true);
       router.push("/");
+      // location.reload();
+
 
       toast.success("Logged In Successfully");
     } catch (error) {

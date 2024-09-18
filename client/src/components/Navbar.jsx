@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaOpencart } from "react-icons/fa";
 
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -19,7 +19,17 @@ const Navbar = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const path = usePathname();
-  const { userAuth, setUserAuth, userData } = useGlobalContext();
+
+  const [userNav, setUserNav] = useState(false);
+  const { userAuth, setUserAuth, userData, setUserData } = useGlobalContext();
+  useEffect(() => {
+    if (userData) {
+      setUserNav(true);
+    } else {
+      setUserNav(false);
+    }
+  }, [userData]);
+
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -30,15 +40,18 @@ const Navbar = () => {
       const res = await axiosInstance.post("/auth/logout");
       // console.log(res.data);
       removeCookie("token");
-      setUserAuth(false);
       toast.success("Logout Successfully");
-
+      setUserData(null);
       if (path === "/") {
-        location.reload();
+        console.log("homepage no route set")
+        setUserAuth(false);
+        setUserData(null)
+
       } else {
         // router.reload();
+        setUserData(null)
+        setUserAuth(false);
         router.push("/");
-        location.reload();
       }
     } catch (error) {
       console.error(error);

@@ -113,7 +113,7 @@ export default function Page() {
                 <input
                   type="submit"
                   required
-                  value={"Create Product"}
+                  value={"Apply changes"}
                   className=" w-full px-3 py-2 border border-gray-300 bg-black text-white rounded-md sm:text-sm"
                 />
               </div>
