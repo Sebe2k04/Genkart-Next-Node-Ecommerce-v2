@@ -27,6 +27,8 @@ router.post("/admin/login", adminLogin);
 
 router.post("/admin/logout", adminLogout);
 
+
+//create admin
 router.post("/admin/signup", adminSignup);
 
 
