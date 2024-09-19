@@ -34,13 +34,12 @@ export default function RootLayout({ children }) {
         />
 
         <DataProvider>
+          <UserAuth />
           <NavbarHandler />
           {children}
           <ToastContainer />
-          <UserAuth />
           <FooterHandler />
         </DataProvider>
-        
       </body>
     </html>
   );

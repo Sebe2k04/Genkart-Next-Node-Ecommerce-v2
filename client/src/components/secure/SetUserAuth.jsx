@@ -6,13 +6,14 @@ import React, { useEffect } from "react";
 
 const SetUserAuth = ({ token, auth }) => {
   // const router = useRouter();
+  console.log("setuserauth",auth)
   const path = usePathname();
   const { userAuth, setUserAuth, userData, setUserData } = useGlobalContext();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const res = await axiosInstance.get("/user/me");
-        // console.log(res.data);
+        console.log(res.data);
         setUserData(res.data);
       } catch (error) {
         console.log(error);
@@ -20,14 +21,14 @@ const SetUserAuth = ({ token, auth }) => {
     };
 
     const authCheck = () => {
-      if (auth && userAuth) {
+      if (auth) {
         setUserAuth(auth);
-        // console.log("token is available");
+        console.log("token is available");
         if (userData) {
-          // console.log("user data is available");
+          console.log("user data is available");
         } else {
           fetchUserData();
-          // console.log("user data is not available");
+          console.log("user data is not available");
         }
       } else {
         setUserAuth(false);
@@ -35,7 +36,7 @@ const SetUserAuth = ({ token, auth }) => {
       }
     };
     authCheck();
-  }, [path]);
+  }, [path,auth]);
   return <div></div>;
 };
 

@@ -5,19 +5,28 @@ import Link from "next/link";
 import { axiosInstance } from "@/utils/axiosConfig";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const ProductCard = ({ product }) => {
+
+  const {userData} = useGlobalContext();
+
   const handleCart = async (id) => {
-    try {
-      const res = await axiosInstance.post("/cart", {
-        productId: id,
-        quantity: 1,
-      });
-      // console.log(res.data);
-      toast.success("Product added to Cart");
-    } catch (error) {
-      console.log(error);
-      toast.error("Error adding to Cart");
+    if(userData){
+      try {
+        const res = await axiosInstance.post("/cart", {
+          productId: id,
+          quantity: 1,
+        });
+        // console.log(res.data);
+        toast.success("Product added to Cart");
+      } catch (error) {
+        console.log(error);
+        toast.error("Error adding to Cart");
+      }
+    }
+    else{
+      toast.error("Login required");
     }
   };
   return (
