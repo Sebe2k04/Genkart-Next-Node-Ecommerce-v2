@@ -28,7 +28,7 @@ const Navbar = () => {
     } else {
       setUserNav(false);
     }
-  }, [userData]);
+  }, [userData,userAuth]);
 
 
   const toggleDrawer = (newOpen) => () => {
@@ -40,16 +40,17 @@ const Navbar = () => {
       const res = await axiosInstance.post("/auth/logout");
       // console.log(res.data);
       removeCookie("token");
-      toast.success("Logout Successfully");
       setUserData(null);
+      toast.success("Logout Successfully");
       if (path === "/") {
         console.log("homepage no route set")
         setUserAuth(false);
-        setUserData(null)
+        setUserData("");
+        location.reload();
 
       } else {
         // router.reload();
-        setUserData(null)
+        setUserData("")
         setUserAuth(false);
         router.push("/");
       }
@@ -98,7 +99,7 @@ const Navbar = () => {
                     <div className="absolute right-0 pt-2 bg-transparent text-gray-400 hidden group-hover:block hover:block">
                       <div className="container bg-white px-5 pt-3 pb-1 w-full shadow-lg rounded-xl ">
                         <div className=" min-w-fit text-sm">
-                          {userAuth ? (
+                          {userNav ? (
                             <ul>
                               <li className="mb-2 hover:text-black">
                                 <Link href="/profile">Profile</Link>
@@ -226,7 +227,7 @@ const Navbar = () => {
           </div>
           <div className="bottom flex align-bottom text-black pb-10 justify-center  pt-10">
             <div className="">
-              {userAuth ? (
+              {userNav ? (
                 <section className="grid gap-4">
                   <div className="flex ">
                     <Link href={"/cart"}>Cart</Link>
