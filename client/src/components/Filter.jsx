@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 import { Select, Option, Spinner } from "@material-tailwind/react";
 
@@ -31,6 +31,10 @@ const Filter = () => {
       label: "T shirts",
       value: "tshirts",
     },
+    {
+      label: "None",
+      value: "",
+    },
   ];
   const handleFilter = () => {
     setFilters({
@@ -49,6 +53,10 @@ const Filter = () => {
     //     console.error("Error fetching products: ", error);
     //   });
   };
+
+  useEffect(() => {
+    setCategory(filters.category);
+  }, [filters]);
 
   return (
     <div>
@@ -102,7 +110,7 @@ const Filter = () => {
                 name="minPrice"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className=" w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
+                className="capitalize w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-600 sm:text-sm"
               />
             </div>
             <div className="grid gap-3">
