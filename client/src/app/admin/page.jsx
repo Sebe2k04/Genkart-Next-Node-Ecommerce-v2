@@ -75,7 +75,7 @@ export default function Page() {
                   </label>
                   <div className="flex border border-black/20 rounded-xl pl-2">
                     <input
-                      type={show ? "password" : "text"}
+                      type={show ? "text" : "password"}
                       name=""
                       id=""
                       onChange={(e) => setPassword(e.target.value)}
