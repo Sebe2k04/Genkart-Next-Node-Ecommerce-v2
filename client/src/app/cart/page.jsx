@@ -8,15 +8,18 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Page() {
-  const { userAuth, userData, setUserData } = useGlobalContext();
+  const { userAuth, userData, setUserData,setCartModified,cartModified } = useGlobalContext();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const [cart,setCart] = useState([])
   useEffect(() => {
+    setLoading(true);
     const fetchCart = async () => {
       try {
         const res = await axiosInstance.get("/cart");
         // console.log(res.data.cart);
-        setUserData({ ...userData, cart: res.data });
+        // setUserData({ ...userData, cart: res.data });
+        setCart(res.data)
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -25,7 +28,7 @@ export default function Page() {
     };
 
     fetchCart();
-  }, []);
+  }, [cartModified]);
   return (
     <div className="lg:px-20 px-8 py-5">
       <div className="py-5">
@@ -35,8 +38,8 @@ export default function Page() {
         <Loader />
       ) : (
         <div className="lg:grid-cols-4 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 gap-8 py-5 pb-24">
-          {userData?.cart &&
-            userData.cart.map((product, index) => {
+          {cart &&
+            cart.map((product, index) => {
               return (
                 <div key={index} className="m-auto p-2">
                   <CartProduct

@@ -8,12 +8,16 @@ import Image from "next/image";
 
 
 const CartProduct = ({ product, quantity }) => {
-  const { userData, setUserData } = useGlobalContext();
+  const { userData, setUserData,setCartModified,cartModified } = useGlobalContext();
+
+  console.log("userdata",userData.cart)
 
   const handleRemoveProduct = async (id) => {
     try {
       const res = await axiosInstance.delete(`/cart/${id}`);
-      setUserData({ ...userData, cart: res.data });
+      console.log(res.data)
+      // setUserData({ ...userData, cart: res.data });
+      setCartModified(!cartModified)
       toast.success("Product removed to Cart");
       // location.reload();
     } catch (error) {

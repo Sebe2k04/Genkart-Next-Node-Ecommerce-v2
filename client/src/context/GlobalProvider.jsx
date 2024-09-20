@@ -17,6 +17,7 @@ const GlobalProvider = ({ children }) => {
   });
   const [userData, setUserData] = useState(null);
   const [userAuth, setUserAuth] = useState(false);
+  const [cartModified,setCartModified] = useState(false);
 
   return (
     <GlobalContext.Provider
@@ -33,6 +34,7 @@ const GlobalProvider = ({ children }) => {
         setUserData,
         userAuth,
         setUserAuth,
+        cartModified,setCartModified
       }}
     >
       {children}
