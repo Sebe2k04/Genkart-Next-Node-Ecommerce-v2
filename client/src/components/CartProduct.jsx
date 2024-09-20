@@ -15,6 +15,7 @@ const CartProduct = ({ product, quantity }) => {
       const res = await axiosInstance.delete(`/cart/${id}`);
       setUserData({ ...userData, cart: res.data });
       toast.success("Product removed to Cart");
+      // location.reload();
     } catch (error) {
       console.log(error);
       toast.error("Error adding to Cart");
@@ -30,8 +31,6 @@ const CartProduct = ({ product, quantity }) => {
               width="500"
               height="500"
               alt="product image"
-              placeholder="blur"
-              blurDataURL={product.image}
               className=" object-cover max-w-[250px] max-h-[250px] lg:max-w-[200px] lg:max-h-[200px] rounded-md aspect-square	"
             />
           </div>

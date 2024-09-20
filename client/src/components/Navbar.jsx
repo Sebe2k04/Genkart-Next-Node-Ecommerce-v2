@@ -39,19 +39,18 @@ const Navbar = () => {
     try {
       const res = await axiosInstance.post("/auth/logout");
       // console.log(res.data);
-      removeCookie("token");
+      await removeCookie("token");
       setUserData(null);
+      setUserAuth(false);
       toast.success("Logout Successfully");
       if (path === "/") {
         console.log("homepage no route set")
-        setUserAuth(false);
         setUserData("");
         location.reload();
 
       } else {
         // router.reload();
         setUserData("")
-        setUserAuth(false);
         router.push("/");
       }
     } catch (error) {
