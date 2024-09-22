@@ -13,6 +13,7 @@ const productSchema = new mongoose.Schema(
     vendor: {
       type: String,
       required: true,
+      default:"GenRio"
     },
     MRPprice: {
       type: Number,
@@ -21,7 +22,6 @@ const productSchema = new mongoose.Schema(
     sellingPrice: {
       type: Number,
       required: true,
-      default:"GenRio"
     },
     description: {
       type: String,
