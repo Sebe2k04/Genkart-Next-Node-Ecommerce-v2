@@ -29,7 +29,7 @@ export default function Page() {
   const [vendor, setVendor] = useState("GenRio");
   const [MRPprice, setMRPprice] = useState("");
   const [sellingprice, setSellingprice] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(10);
   const [description, setDescription] = useState("");
   const [trend, setTrend] = useState(false);
   const [offer, setOffer] = useState(false);
