@@ -78,7 +78,7 @@ export default function Page() {
   useEffect(() => {
     if (PaginatedValue == pagination.totalPages) {
     } else {
-      setPagination({ ...pagination, totalPages: res.data.totalPages });
+      setPagination({ ...pagination, totalPages: PaginatedValue});
     }
   }, [PaginatedValue]);
 

@@ -12,7 +12,7 @@ const Pagination = () => {
   };
 
   const prev = () => {
-    if (active === 1) return;
+    if (pagination === 1) return;
     setPagination({ ...pagination, currentPage: pagination.currentPage - 1 });
   };
 
