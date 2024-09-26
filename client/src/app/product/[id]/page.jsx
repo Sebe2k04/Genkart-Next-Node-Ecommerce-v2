@@ -12,12 +12,33 @@ import Link from "next/link";
 import Loader from "@/components/Loader";
 import Image from "next/image";
 import SmallFooter from "@/components/SmallFooter";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 export default function Page() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const router = useRouter();
   const [currentImage, setCurrentImage] = useState("");
+  const {userData} = useGlobalContext();
+
+  const handleCart = async (pid) => {
+    if(userData){
+      try {
+        const res = await axiosInstance.post("/cart", {
+          productId: pid,
+          quantity: 1,
+        });
+        // console.log(res.data);
+        toast.success("Product added to Cart");
+      } catch (error) {
+        console.log(error);
+        toast.error("Error adding to Cart");
+      }
+    }
+    else{
+      toast.error("Login required");
+    }
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -160,7 +181,7 @@ export default function Page() {
                   <h1 className="pt-1">Offers available</h1>
                 </div>
               </div>
-              <div className="flex cursor-pointer justify-center items-center gap-1 px-3 py-2 rounded-md border bg-black text-white duration-200 text-sm mt-2">
+              <div onClick={() => handleCart(product._id)} className="flex cursor-pointer justify-center items-center gap-1 px-3 py-2 rounded-md border bg-black text-white duration-200 text-sm mt-2">
                 <GiShoppingCart className="font-semibold text-xl" />
                 <h1 className="pt-1">Add to Cart</h1>
               </div>
