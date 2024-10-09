@@ -1,5 +1,8 @@
 ﻿# Genkart-Ecommerce
 
+<img src="./readme-assets/herosc.png" alt="" />
+
+
 Genkart is a sophisticated e-commerce platform designed to demonstrate a wide range of web development skills. Unlike traditional e-commerce sites, Genkart intentionally omits payment and "Buy Now" options, focusing instead on the user experience, product management, and robust backend functionality. The project is built using cutting-edge technologies and frameworks to ensure scalability, performance, and maintainability.
 
 ### Tech Stack Overview:
