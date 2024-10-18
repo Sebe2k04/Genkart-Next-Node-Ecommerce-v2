@@ -15,7 +15,10 @@ const FooterHandler = () => {
         path.startsWith("/reset-password") ? (
           ""
         ) : (
-          {/* <Footer /> */}
+          
+          <div className="">
+            {/* <Footer /> */}
+          </div>
         )}
       </div>
     </div>

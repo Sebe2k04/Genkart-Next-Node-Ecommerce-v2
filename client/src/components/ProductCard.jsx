@@ -76,7 +76,7 @@ const ProductCard = ({ product }) => {
         <GiShoppingCart className="font-semibold text-xl" />
         <h1 className="pt-1">Add to Cart</h1>
       </div>
-      <h1 className="pt-2 text-[12px]">For Demo purpose only - GenRio !</h1>
+      {/* <h1 className="pt-2 text-[12px]">For Demo purpose only - GenRio !</h1> */}
     </div>
   );
 };
