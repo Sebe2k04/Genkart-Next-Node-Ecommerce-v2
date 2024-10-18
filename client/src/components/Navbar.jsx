@@ -89,7 +89,7 @@ const Navbar = () => {
                         />
                       ) : (
                         <img
-                          src="/profile.png"
+                          src="/profile-genk.jpg"
                           alt=""
                           className="w-10 rounded-full"
                         />
