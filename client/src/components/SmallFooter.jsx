@@ -5,7 +5,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa'
 const SmallFooter = () => {
   return (
     <div>
-      {/* <div className="flex justify-center capitalize py-10 text-gray-400">
+      <div className="flex justify-center capitalize py-10 text-gray-400">
         <div className="">
           <h1 className="text-center">
             A product by{" "}
@@ -30,7 +30,7 @@ const SmallFooter = () => {
             </Link>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

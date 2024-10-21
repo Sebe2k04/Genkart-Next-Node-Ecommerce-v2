@@ -17,7 +17,7 @@ const FooterHandler = () => {
         ) : (
           
           <div className="">
-            {/* <Footer /> */}
+            <Footer />
           </div>
         )}
       </div>

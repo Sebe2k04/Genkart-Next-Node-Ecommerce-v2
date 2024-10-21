@@ -1,6 +1,5 @@
-// middleware.js (Route protection middleware)
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose"; // Use a library like jose for JWT verification
+import { jwtVerify } from "jose"; 
 import { adminAuth } from "./middlewares/adminAuth";
 import { normalUserAuth } from "./middlewares/normalUserAuth";
 
@@ -12,16 +11,14 @@ export async function middleware(req,res) {
     req.nextUrl.pathname.startsWith("/profile") ||
     req.nextUrl.pathname.startsWith("/cart")
   ) {
-    // console.log("user route middleware");
 
     const userResponse = await normalUserAuth(req);
     if (userResponse) return userResponse;
   } 
 
-  return NextResponse.next(); // Continue to the next middleware or route handler
+  return NextResponse.next();
 }
-
-// Apply middleware to specific routes (e.g., dashboard, profile, etc.)
+//path
 export const config = {
   matcher: ["/admin/secure/:path*", "/profile/:path", "/cart/:path"],
 };

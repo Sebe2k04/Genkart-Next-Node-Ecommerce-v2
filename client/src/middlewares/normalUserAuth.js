@@ -5,12 +5,11 @@ export const normalUserAuth = async (req) => {
   const token = req.cookies.get("token")?.value;
   // console.log(token, "token");
   if (!token) {
-    // Redirect to login if no token is found
+   
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
   try {
-    // Verify JWT token
     // console.log("token verifying");
     const { payload } = await jwtVerify(
       token,
