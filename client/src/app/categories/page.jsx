@@ -24,7 +24,7 @@ export default function Page() {
             balance between comfort and style. Typically made from breathable
             fabrics like cotton or linen, they come in a wide range of colors,
             patterns, and fits, making them ideal for various occasions. Whether
-            it's a laid-back outing or a semi-formal event, casual shirts can be
+            it&apos;s a laid-back outing or a semi-formal event, casual shirts can be
             easily dressed up with chinos or dressed down with jeans. Their
             relaxed design, featuring button-down fronts and collar variations,
             provides a smart yet effortless look, making them a go-to choice for
