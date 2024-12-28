@@ -25,6 +25,8 @@ export default function RootLayout({ children }) {
           name="google-adsense-account"
           content="ca-pub-3190426345078074"
         ></meta>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3190426345078074"
+     crossorigin="anonymous"></script>
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
       </head>
       <body className={inter.className}>
