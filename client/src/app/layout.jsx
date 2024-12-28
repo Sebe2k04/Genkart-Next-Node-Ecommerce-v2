@@ -21,6 +21,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-3190426345078074"
+        ></meta>
         <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
       </head>
       <body className={inter.className}>

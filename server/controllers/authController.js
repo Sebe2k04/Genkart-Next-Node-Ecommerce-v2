@@ -46,14 +46,7 @@ const login = async (req, res) => {
   }
 };
 
-const logout = (req, res) => {
-  try {
-    res.clearCookie("userToken");
-    res.json({ message: "Logout successful" });
-  } catch (error) {
-    res.status(400).json({ message: "Logout failed" });
-  }
-};
+ 
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
