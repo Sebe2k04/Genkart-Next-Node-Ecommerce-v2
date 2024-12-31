@@ -40,7 +40,7 @@ const Search = () => {
             id="search"
             value={term}
             onChange={handleInputChange}
-            className=" rounded-xl  lg:min-w-[300px] lg:max-w-[400px] max-w-[200px] md:max-w-[300px] focus:outline-none py-2 px-5"
+            className=" rounded-xl focus:bg-white  lg:min-w-[300px] lg:max-w-[400px] max-w-[200px] md:max-w-[300px] focus:outline-none py-2 px-5"
           />
           <div onClick={handleSearch} className="">
             <div className="flex items-center justify-center h-full cursor-pointer relative pr-3 pl-2 rounded-r-xl-3 z-[100]">
