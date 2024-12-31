@@ -46,7 +46,10 @@ const login = async (req, res) => {
   }
 };
 
- 
+const logout = (req, res) => {
+  res.clearCookie("userToken");
+  res.json({ message: "Logout successful" });
+};
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
