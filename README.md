@@ -145,7 +145,7 @@ JWT_EXPIRES_IN="1d"
 
 ### how to run it
 
-note : initially the website will be blank because no user , admin or products are not in you database
+note : initially the website will be blank because no user , admin or products are not present in your database..
 
 create two terminals in vs code
 
