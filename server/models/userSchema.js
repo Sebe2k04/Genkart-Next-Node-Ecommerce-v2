@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
-      default:"https://res.cloudinary.com/ded1o1e26/image/upload/v1726405493/profile_ioufgc.png"
+      default:"https://res.cloudinary.com/ded1o1e26/image/upload/v1733411240/istockphoto-1223671392-612x612_hemk0v.jpg"
+      //default:"https://res.cloudinary.com/ded1o1e26/image/upload/v1726405493/profile_ioufgc.png"
     },
     resetPasswordToken: {
       type: String,
