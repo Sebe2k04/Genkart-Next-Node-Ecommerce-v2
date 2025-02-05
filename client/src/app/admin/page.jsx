@@ -32,7 +32,7 @@ export default function Page() {
       });
       // console.log(res.data);
       await setCookie("adminToken", res.data.adminToken);
-      router.push("/admin/secure/dashboard");
+      router.push("/admin/secure/home");
       toast.success("Logged In Successfully");
     } catch (error) {
       console.error(error);
